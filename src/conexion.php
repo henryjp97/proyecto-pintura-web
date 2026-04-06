@@ -6,6 +6,7 @@ $password = getenv('MYSQL_ROOT_PASSWORD');
 try {
     $conn = new PDO($dsn, $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Has hecho conexion a la BD";
 } catch (PDOException $e) {
     die('❌ Error de conexión: ' . $e->getMessage());
 }

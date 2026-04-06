@@ -15,6 +15,9 @@ services:
     build: .
     volumes:
       - ./src:/var/www/html
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
 
   db:
     image: mysql:8.0
