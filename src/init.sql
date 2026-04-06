@@ -1,0 +1,47 @@
+CREATE DATABASE IF NOT EXISTS finishline_db;
+USE finishline_db;
+
+CREATE TABLE IF NOT EXISTS Autenticacion (
+  id_autenticacion INT AUTO_INCREMENT PRIMARY KEY,
+  password_hash VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Usuario (
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  id_autenticacion INT,
+  Nombre VARCHAR(100) NOT NULL,
+  Apellido VARCHAR(100) NOT NULL,
+  Telefono VARCHAR(20),
+  Correo VARCHAR(150) NOT NULL,
+  Rol VARCHAR(50) DEFAULT 'cliente',
+  FOREIGN KEY (id_autenticacion) REFERENCES Autenticacion(id_autenticacion)
+);
+
+CREATE TABLE IF NOT EXISTS Servicios (
+  ID_servicio INT AUTO_INCREMENT PRIMARY KEY,
+  Nombre VARCHAR(100) NOT NULL,
+  Descripcion TEXT,
+  disponible BOOLEAN DEFAULT TRUE,
+  categoria_vehiculo VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS Ticket (
+  id_ticket INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT,
+  id_servicio INT,
+  descripcion TEXT,
+  matricula VARCHAR(20),
+  fecha_inicio DATE,
+  fecha_fin DATE,
+  presupuesto DECIMAL(10,2),
+  estado VARCHAR(50) DEFAULT 'pendiente',
+  fecha_cita DATETIME,
+  FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+  FOREIGN KEY (id_servicio) REFERENCES Servicios(ID_servicio)
+);
+
+-- Datos de prueba
+INSERT INTO Servicios (Nombre, Descripcion, disponible, categoria_vehiculo) VALUES
+('Pintura completa', 'Pintura de toda la carrocería', TRUE, 'Turismo'),
+('Reparación de arañazos', 'Eliminación de arañazos superficiales', TRUE, 'Todos'),
+('Pintura de paragolpes', 'Pintura y reparación de paragolpes', TRUE, 'Todos');
