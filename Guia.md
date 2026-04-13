@@ -23,3 +23,21 @@
 3. Rellenar las contraseñas en `.env`
 4. Arrancar Docker con `docker-compose up --build`
 5. Abrir el navegador en `http://localhost:8080`
+
+
+## usuario.php
+Lo que hace cada método:
+   Método                          Función
+
+registrar()-------------------> Crea el hash de la contraseña y guarda el usuario
+login()-----------------------> Busca el usuario y verifica la contraseña
+existeCorreo()----------------> Previene registros duplicados
+
+## AuthController.php
+Lo que hace cada método:
+    Método                                Función
+
+registro()-----------------> Valida datos y registra el usuario
+login()--------------------> Verifica credenciales y crea la sesión
+logout()-------------------> Destruye la sesión y redirige al login
+verificarSesion()----------> Protege páginas que requieren login
