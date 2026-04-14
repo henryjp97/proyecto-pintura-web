@@ -2,7 +2,9 @@
 require_once __DIR__ . '/../models/usuario.php';
 require_once __DIR__ . '/../config/conexion.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 class AuthController {
     private $usuarioModel;
@@ -11,24 +13,21 @@ class AuthController {
         $this->usuarioModel = new Usuario($conn);
     }
 
-    // Manejar registro
+    // --- MÉTODO DE REGISTRO (Faltaba este en tu último mensaje) ---
     public function registro($datos) {
-        // Verificar que no falten campos
         if (empty($datos['nombre']) || empty($datos['apellido']) || 
             empty($datos['correo']) || empty($datos['password'])) {
             return ['error' => 'Todos los campos son obligatorios'];
         }
 
-        // Verificar si el correo ya existe
         if ($this->usuarioModel->existeCorreo($datos['correo'])) {
             return ['error' => 'El correo ya está registrado'];
         }
 
-        // Registrar usuario
         $resultado = $this->usuarioModel->registrar(
             $datos['nombre'],
             $datos['apellido'],
-            $datos['telefono'],
+            $datos['telefono'] ?? '', // Evita error si no viene teléfono
             $datos['correo'],
             $datos['password']
         );
@@ -39,36 +38,40 @@ class AuthController {
         return ['error' => 'Error al registrar el usuario'];
     }
 
-    // Manejar login
+    // --- MÉTODO DE LOGIN ---
     public function login($correo, $password) {
         $usuario = $this->usuarioModel->login($correo, $password);
 
         if ($usuario) {
-            // Guardar en sesión
             $_SESSION['usuario'] = [
                 'id' => $usuario['id_usuario'],
                 'nombre' => $usuario['Nombre'],
                 'correo' => $usuario['Correo'],
                 'rol' => $usuario['Rol']
             ];
-            return ['success' => 'Login correcto'];
+            return true;
         }
-        return ['error' => 'Correo o contraseña incorrectos'];
+        return false;
     }
 
-    // Cerrar sesión
     public function logout() {
         session_destroy();
-        header('Location: /views/login.php');
+        header('Location: /index.php');
         exit();
     }
+}
 
-    // Verificar si hay sesión activa
-    public static function verificarSesion() {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: /views/login.php');
-            exit();
+// --- LÓGICA DE PROCESAMIENTO PARA EL LOGIN DEL INDEX ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user']) && isset($_POST['pass'])) {
+    if (isset($conn)) {
+        $controller = new AuthController($conn);
+        $exito = $controller->login($_POST['user'], $_POST['pass']);
+
+        if ($exito) {
+            header('Location: /index.php');
+        } else {
+            header('Location: /index.php?error=1');
         }
+        exit();
     }
 }
-?>
