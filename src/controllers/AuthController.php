@@ -62,16 +62,15 @@ class AuthController {
 }
 
 // --- LÓGICA DE PROCESAMIENTO PARA EL LOGIN DEL INDEX ---
+// --- LÓGICA DE PROCESAMIENTO PARA EL LOGIN DEL INDEX ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user']) && isset($_POST['pass'])) {
-    if (isset($conn)) {
-        $controller = new AuthController($conn);
-        $exito = $controller->login($_POST['user'], $_POST['pass']);
+    $controller = new AuthController($conn);
+    $exito = $controller->login($_POST['user'], $_POST['pass']);
 
-        if ($exito) {
-            header('Location: /index.php');
-        } else {
-            header('Location: /index.php?error=1');
-        }
-        exit();
+    if ($exito) {
+        header('Location: /index.php');
+    } else {
+        header('Location: /index.php?error=1');
     }
+    exit();
 }

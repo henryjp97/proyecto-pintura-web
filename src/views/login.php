@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../src/controllers/AuthController.php';
+require_once __DIR__ . '/../controllers/AuthController.php';
 
 $mensaje = '';
 
@@ -7,11 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controller = new AuthController($conn);
     $resultado = $controller->login($_POST['correo'], $_POST['password']);
     
-    if (isset($resultado['success'])) {
+    if ($resultado === true) {
         header('Location: /index.php');
         exit();
     } else {
-        $mensaje = $resultado['error'];
+        $mensaje = 'Correo o contraseña incorrectos';
     }
 }
 ?>
@@ -22,22 +22,127 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - FinishLine</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor del login */
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .welcome-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Mensaje de error */
+        .error-mensaje {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #ef9a9a;
+        }
+
+        /* Formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Link de registro */
+        .footer-link {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .footer-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Iniciar sesión</h1>
+    <div class="login-container">
+        <h1>FinishLine</h1>
+        <p class="welcome-text">
+            Bienvenido a FinishLine, para conocer más de nosotros y nuestro servicio por favor regístrate e inicia sesión.
+        </p>
 
-    <?php if ($mensaje): ?>
-        <p style="color:red"><?= $mensaje ?></p>
-    <?php endif; ?>
+        <?php if ($mensaje): ?>
+            <div class="error-mensaje"><?= $mensaje ?></div>
+        <?php endif; ?>
 
-    <form method="POST" action="">
-        <input type="email" name="correo" placeholder="Correo" required>
-        <input type="password" name="password" placeholder="Contraseña" required>
-        <button type="submit">Entrar</button>
-    </form>
+        <form method="POST" action="">
+            <input type="email" name="correo" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+        </form>
 
-    <p>¿No tienes cuenta? <a href="/views/registro.php">Regístrate</a></p>
+        <p class="footer-link">
+            ¿No tienes cuenta? <a href="/src/views/registro.php">Regístrate aquí</a>
+        </p>
+    </div>
 
 </body>
 </html>
