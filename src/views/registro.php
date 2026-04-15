@@ -32,7 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Registro - FinishLine</title>
-    <link rel="stylesheet" href="/src/styles/Registro.css">
+    <style>
+        body { font-family: Arial; background: #f4f4f4; display: flex; justify-content: center; padding-top: 50px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 300px; }
+        input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #004a7c; color: white; border: none; cursor: pointer; }
+    </style>
 </head>
 <body>
     <div class="card">
