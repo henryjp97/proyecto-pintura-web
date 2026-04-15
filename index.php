@@ -161,13 +161,13 @@ $usuarioLogueado = isset($_SESSION['usuario']);
                 <p>Expertos a su disposición.</p>
             </div>
         </section>
-    
+                <?php if(!$usuarioLogueado):
+                 ?>
         <section class="premium-notice">
             <h3>Nuestros Servicios Premium</h3>
             <p>El catálogo detallado de procesos y acabados está disponible solo para clientes registrados.</p>
             <p><a href="/src/views/login.php" class="btn-link">Inicia sesión</a> para conocer más de nuestros servicios.</p>
         </section>
-    
-
+        <?php endif; ?>
 </body>
 </html>
