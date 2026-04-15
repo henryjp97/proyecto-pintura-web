@@ -62,7 +62,6 @@ class AuthController {
 }
 
 // --- LÓGICA DE PROCESAMIENTO PARA EL LOGIN DEL INDEX ---
-// --- LÓGICA DE PROCESAMIENTO PARA EL LOGIN DEL INDEX ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user']) && isset($_POST['pass'])) {
     $controller = new AuthController($conn);
     $exito = $controller->login($_POST['user'], $_POST['pass']);
