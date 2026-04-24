@@ -40,8 +40,12 @@ CREATE TABLE IF NOT EXISTS Ticket (
   FOREIGN KEY (id_servicio) REFERENCES Servicios(ID_servicio)
 );
 
--- Datos de prueba
+
 INSERT INTO Servicios (Nombre, Descripcion, disponible, categoria_vehiculo) VALUES
 ('Pintura completa', 'Pintura de toda la carrocería', TRUE, 'Turismo'),
 ('Reparación de arañazos', 'Eliminación de arañazos superficiales', TRUE, 'Todos'),
 ('Pintura de paragolpes', 'Pintura y reparación de paragolpes', TRUE, 'Todos');
+
+CREATE user admin IDENTIFIED BY "admin";
+
+GRANT ALL ON finishline_db.* to admin;
