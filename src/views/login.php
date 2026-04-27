@@ -1,141 +1,57 @@
 <?php
+
+require_once __DIR__ . '/../config/conexion.php';
 require_once __DIR__ . '/../controllers/AuthController.php';
+
+// Conexión usando la clase Database con variables de entorno
+$database = new Database();
+$conn     = $database->getConnection();
 
 $mensaje = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $controller = new AuthController($conn);
-    $resultado = $controller->login($_POST['correo'], $_POST['password']);
-    
-    if ($resultado === true) {
-        header('Location: /index.php');
-        exit();
+    $correo   = trim($_POST['correo']   ?? '');
+    $password = trim($_POST['password'] ?? '');
+
+    if (empty($correo) || empty($password)) {
+        $mensaje = 'Por favor, completa todos los campos.';
     } else {
-        $mensaje = 'Correo o contraseña incorrectos';
+        $controller = new AuthController($conn);
+        $resultado  = $controller->login($correo, $password);
+
+        if ($resultado === true) {
+            header('Location: /index.php');
+            exit();
+        } else {
+            $mensaje = 'Correo o contraseña incorrectos.';
+        }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - FinishLine</title>
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        /* Contenedor del login */
-        .login-container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .welcome-text {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        /* Mensaje de error */
-        .error-mensaje {
-            background-color: #ffebee;
-            color: #c62828;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            border: 1px solid #ef9a9a;
-        }
-
-        /* Formulario */
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        input {
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #007bff;
-        }
-
-        button {
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Link de registro */
-        .footer-link {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .footer-link a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .footer-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Login-FinishLine</title>
+    
+    <link rel="stylesheet" href="/src/styles/login.css">
 </head>
 <body>
-
     <div class="login-container">
         <h1>FinishLine</h1>
         <p class="welcome-text">
-            Bienvenido a FinishLine, para conocer más de nosotros y nuestro servicio por favor regístrate e inicia sesión.
+            Bienvenido a FinishLine, para conocer más de nosotros y nuestro servicio
+            por favor regístrate e inicia sesión.
         </p>
 
         <?php if ($mensaje): ?>
-            <div class="error-mensaje"><?= $mensaje ?></div>
+            <div class="error-mensaje"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>
 
         <form method="POST" action="">
-            <input type="email" name="correo" placeholder="Correo electrónico" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="email"    name="correo"   placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña"         required>
             <button type="submit">Entrar</button>
         </form>
 
@@ -143,6 +59,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ¿No tienes cuenta? <a href="/src/views/registro.php">Regístrate aquí</a>
         </p>
     </div>
-
 </body>
 </html>
