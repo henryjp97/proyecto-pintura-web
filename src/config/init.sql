@@ -39,6 +39,15 @@ CREATE TABLE IF NOT EXISTS Ticket (
   FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
   FOREIGN KEY (id_servicio) REFERENCES Servicios(ID_servicio)
 );
+CREATE TABLE IF NOT EXISTS Solicitudes (
+    id_solicitud INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(150) NOT NULL,
+    DNI VARCHAR(9) NOT NULL,
+    asunto VARCHAR(100) NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha_envio DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 
 INSERT INTO Servicios (Nombre, Descripcion, disponible, categoria_vehiculo) VALUES
