@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once __DIR__ . '/../config/conexion.php';
 require_once __DIR__ . '/../controllers/AuthController.php';
 
@@ -55,6 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Entrar</button>
         </form>
 
+        <p class="footer-link recuperar-link">
+            <a href="/src/views/recuperar_password.php">¿Olvidaste tu contraseña?</a>
+        </p>
         <p class="footer-link">
             ¿No tienes cuenta? <a href="/src/views/registro.php">Regístrate aquí</a>
         </p>

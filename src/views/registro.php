@@ -1,10 +1,12 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 // src/views/registro.php
 require_once __DIR__ . '/../config/conexion.php'; 
 require_once __DIR__ . '/../controllers/AuthController.php';
-
+$database = new Database();
+$conn     = $database->getConnection();
 // Verifica si $conn existe (la variable que creas en conexion.php)
 if (!isset($conn)) {
     die("Error: La conexión a la base de datos no está disponible.");

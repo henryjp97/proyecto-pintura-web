@@ -19,7 +19,7 @@ $pagina_actual = basename($_SERVER['PHP_SELF']); //ruta actual del usuario
                 <span>Bienvenido, <strong><?= htmlspecialchars($_SESSION['usuario']['nombre']) ?></strong></span>
                 <a href="/src/views/logout.php" class="btn-logout">Cerrar Sesion</a>
             <?php else: ?>
-                <a href="/src/views/login.php" class="btn-login">SIGN IN</a>
+                <a href="/src/views/login.php" class="btn-login">Iniciar Sesion</a>
             <?php endif; ?>
         </div>
     </header>

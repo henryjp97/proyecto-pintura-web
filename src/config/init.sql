@@ -50,6 +50,16 @@ CREATE TABLE IF NOT EXISTS Solicitudes (
 );
 
 
+
+CREATE TABLE IF NOT EXISTS password_reset (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT         NOT NULL,
+  token      VARCHAR(64) NOT NULL UNIQUE,
+  expira_en  DATETIME    NOT NULL,
+  creado_en  DATETIME    DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario) ON DELETE CASCADE
+);
+
 INSERT INTO Servicios (Nombre, Descripcion, disponible, categoria_vehiculo) VALUES
 ('Pintura completa', 'Pintura de toda la carrocería', TRUE, 'Turismo'),
 ('Reparación de arañazos', 'Eliminación de arañazos superficiales', TRUE, 'Todos'),
