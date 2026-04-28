@@ -61,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="footer-link">
             ¿No tienes cuenta? <a href="/src/views/registro.php">Regístrate aquí</a>
         </p>
+        <p class="footer-link">
+            <a href="/index.php">← Volver a la página principal</a>
+        </p>
     </div>
 </body>
 </html>

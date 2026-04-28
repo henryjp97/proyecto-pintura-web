@@ -3,15 +3,15 @@ FROM php:8.2-fpm
 # Extensiones de PHP necesarias
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Instalar git y unzip (los necesita Composer para descargar paquetes)
+# Instalar git y unzip
 RUN apt-get update && apt-get install -y git unzip && rm -rf /var/lib/apt/lists/*
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Directorio de trabajo
-WORKDIR /var/www/html
+# Instalar PHPMailer en /var/composer (FUERA del volumen, así no se sobreescribe)
+COPY composer.json /var/composer/composer.json
+RUN composer install --no-interaction --no-dev --optimize-autoloader --prefer-dist \
+    --working-dir=/var/composer
 
-# Copiar composer.json e instalar dependencias
-COPY composer.json ./
-RUN composer install --no-interaction --no-dev --optimize-autoloader --prefer-dist
+WORKDIR /var/www/html
