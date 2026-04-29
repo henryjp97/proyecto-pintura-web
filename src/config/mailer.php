@@ -1,5 +1,4 @@
 <?php
-// src/config/mailer.php
 // Configuración centralizada de PHPMailer con Gmail SMTP
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -15,8 +14,8 @@ function crearMailer(): PHPMailer {
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = getenv('MAIL_USER');     // tu correo Gmail
-    $mail->Password   = getenv('MAIL_PASS');     // contraseña de aplicación Google
+    $mail->Username   = getenv('MAIL_USER');     // gmail env.
+    $mail->Password   = getenv('MAIL_PASS');     // contraseña de aplicacion Google env.
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 

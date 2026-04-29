@@ -20,7 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado  = $controller->login($correo, $password);
 
         if ($resultado === true) {
-            header('Location: /index.php');
+            $rol = $_SESSION['usuario']['rol'] ?? 'cliente';
+            if (in_array($rol, ['admin', 'empleado'])) {
+                header('Location: /src/views/admin/panel.php');
+            } else {
+                header('Location: /index.php');
+            }
             exit();
         } else {
             $mensaje = 'Correo o contraseña incorrectos.';

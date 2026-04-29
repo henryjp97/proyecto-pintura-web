@@ -8,7 +8,7 @@ class AdminController {
         $this->conn = $conn;
     }
 
-    // ── Listar todos los usuarios ──────────────────────────────
+    // Listar todos los usuarios
     public function getUsuarios(): array {
         $stmt = $this->conn->query(
             "SELECT id_usuario, Nombre, Apellido, Correo, Telefono, Rol
@@ -18,7 +18,7 @@ class AdminController {
         return $stmt->fetchAll();
     }
 
-    // ── Obtener un usuario por ID ──────────────────────────────
+    // Obtener un usuario por ID
     public function getUsuario(int $id): array|false {
         $stmt = $this->conn->prepare(
             "SELECT id_usuario, Nombre, Apellido, Correo, Telefono, Rol
@@ -28,7 +28,7 @@ class AdminController {
         return $stmt->fetch();
     }
 
-    // ── Cambiar rol de un usuario ──────────────────────────────
+    // Cambiar ROL a un usuario
     public function cambiarRol(int $id, string $nuevoRol): bool {
         $rolesPermitidos = ['admin', 'empleado', 'cliente'];
         if (!in_array($nuevoRol, $rolesPermitidos)) return false;
@@ -39,9 +39,9 @@ class AdminController {
         return $stmt->execute([$nuevoRol, $id]);
     }
 
-    // ── Eliminar usuario ───────────────────────────────────────
+    // Eliminar un usuario
     public function eliminarUsuario(int $id): bool {
-        // Primero obtenemos su id_autenticacion
+
         $stmt = $this->conn->prepare(
             "SELECT id_autenticacion FROM Usuario WHERE id_usuario = ?"
         );
@@ -49,18 +49,18 @@ class AdminController {
         $usuario = $stmt->fetch();
         if (!$usuario) return false;
 
-        // Borramos el usuario (ON DELETE CASCADE borra tickets, password_reset)
+        // Borrar tickets y password_reset del usuario
         $stmt = $this->conn->prepare("DELETE FROM Usuario WHERE id_usuario = ?");
         $stmt->execute([$id]);
 
-        // Borramos la autenticación huérfana
+        // Borrar la autenticacion
         $stmt = $this->conn->prepare("DELETE FROM Autenticacion WHERE id_autenticacion = ?");
         $stmt->execute([$usuario['id_autenticacion']]);
 
         return true;
     }
 
-    // ── Tickets de un usuario ──────────────────────────────────
+    // Mostrar tickets por ID
     public function getTicketsUsuario(int $id): array {
         $stmt = $this->conn->prepare(
             "SELECT t.id_ticket, t.descripcion, t.matricula, t.estado,
@@ -75,7 +75,7 @@ class AdminController {
         return $stmt->fetchAll();
     }
 
-    // ── Todos los tickets (vista general) ─────────────────────
+    // Mostrar todos los tickets guardados
     public function getTodosTickets(): array {
         $stmt = $this->conn->query(
             "SELECT t.id_ticket, t.descripcion, t.matricula, t.estado,
@@ -90,7 +90,7 @@ class AdminController {
         return $stmt->fetchAll();
     }
 
-    // ── Cambiar estado de un ticket ────────────────────────────
+    // Cambiar estado de un ticket
     public function cambiarEstadoTicket(int $id, string $estado): bool {
         $permitidos = ['pendiente', 'en proceso', 'completado', 'cancelado'];
         if (!in_array($estado, $permitidos)) return false;
@@ -101,7 +101,7 @@ class AdminController {
         return $stmt->execute([$estado, $id]);
     }
 
-    // ── Estadísticas rápidas para el dashboard ────────────────
+    // Estadisticas visuales del panel de control
     public function getStats(): array {
         $stats = [];
 

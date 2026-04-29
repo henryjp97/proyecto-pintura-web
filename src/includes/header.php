@@ -30,14 +30,14 @@ $pagina_actual = basename($_SERVER['PHP_SELF']); //ruta actual del usuario
 
             <a href="/index.php" class="<?= ($pagina_actual == 'index.php') ? 'active' : '' ?>">Inicio</a>
             <a href="/src/views/quienes_somos.php" class="<?= ($pagina_actual == 'quienes_somos.php') ? 'active' : '' ?>">Quiénes somos</a>
-            <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['rol'] === 'admin'): ?>
-                <a href="/src/views/admin/panel.php" style="background:#7c3aed;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;">&#9881; Admin</a>
-            <?php endif; ?>
             <?php if ($usuarioLogueado): ?>
                 <a href="/src/views/servicios.php" class="<?= ($pagina_actual == 'servicios.php') ? 'active' : '' ?>">Servicios</a>
             <?php endif; ?>
             <a href="/src/views/galeria.php" class="<?= ($pagina_actual == 'galeria.php') ? 'active' : '' ?>">Galería</a>
             <a href="/src/views/contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'active' : '' ?>">Contacto</a>
+            <?php if (isset($_SESSION['usuario']) && in_array($_SESSION['usuario']['rol'], ['admin','empleado'])): ?>
+                <a href="/src/views/admin/panel.php" style="background:#718096;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;">&#9881; Panel de control</a>
+            <?php endif; ?>
 
         </div>
     </nav>

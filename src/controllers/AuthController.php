@@ -9,13 +9,12 @@ if (session_status() === PHP_SESSION_NONE) {
 class AuthController {
     private $usuarioModel;
 
+    //constructor
     public function __construct($conn) {
         $this->usuarioModel = new Usuario($conn);
     }
 
-    // ──────────────────────────────────────────
-    // LOGIN
-    // ──────────────────────────────────────────
+    //Iniciar sesion
     public function login(string $correo, string $password): bool {
         $usuario = $this->usuarioModel->login($correo, $password);
 
@@ -32,9 +31,7 @@ class AuthController {
         return false;
     }
 
-    // ──────────────────────────────────────────
-    // REGISTRO
-    // ──────────────────────────────────────────
+    //registrarse
     public function registro(array $datos): array {
         if (empty($datos['nombre']) || empty($datos['apellido']) ||
             empty($datos['correo']) || empty($datos['password'])) {
@@ -58,9 +55,7 @@ class AuthController {
             : ['error'   => 'Error al registrar el usuario'];
     }
 
-    // ──────────────────────────────────────────
-    // LOGOUT
-    // ──────────────────────────────────────────
+    //Cerrar sesion
     public function logout(): void {
         session_destroy();
         header('Location: /index.php');

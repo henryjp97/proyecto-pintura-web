@@ -1,8 +1,11 @@
 <?php 
 session_start(); 
-require_once __DIR__ . '/src/config/conexion.php'; //usar la conexion a la bbdd
-require_once __DIR__ . '/src/includes/header.php'; //usar el header
-$usuarioLogueado = isset($_SESSION['usuario']); // Variable para verificar el estado de la sesion
+require_once __DIR__ . '/src/config/conexion.php';
+require_once __DIR__ . '/src/config/roles.php';
+
+
+require_once __DIR__ . '/src/includes/header.php';
+$usuarioLogueado = isset($_SESSION['usuario']);
 ?>
 <!DOCTYPE html>
 <html lang="es">

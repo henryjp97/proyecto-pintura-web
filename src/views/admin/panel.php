@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../../config/roles.php';
 require_once __DIR__ . '/../../controllers/AdminController.php';
 
-requireAdmin();
+requireAdminOrEmpleado();
 
 $database = new Database();
 $conn     = $database->getConnection();
@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'] ?? '';
 
     if ($accion === 'cambiar_rol') {
+        if (!esAdmin()) { $mensaje = 'No tienes permiso para cambiar roles.'; $tipo = 'error'; }
+        else {
         $id  = (int)($_POST['id_usuario'] ?? 0);
         $rol = $_POST['rol'] ?? '';
         if ($id === (int)$_SESSION['usuario']['id']) {
@@ -30,8 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tipo    = 'error';
         }
     }
+    }
 
     if ($accion === 'eliminar_usuario') {
+        if (!esAdmin()) { $mensaje = 'No tienes permiso para eliminar usuarios.'; $tipo = 'error'; }
+        else {
         $id = (int)($_POST['id_usuario'] ?? 0);
         if ($id === (int)$_SESSION['usuario']['id']) {
             $mensaje = 'No puedes eliminar tu propia cuenta.';
@@ -56,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tipo    = 'error';
         }
     }
+}
 }
 
 $stats    = $admin->getStats();
@@ -156,6 +162,7 @@ $colores_rol = [
                         <td><?= htmlspecialchars($u['Telefono'] ?? '—') ?></td>
                         <td><span class="badge-rol" style="background:<?= $colores_rol[$u['Rol']] ?? '#999' ?>"><?= htmlspecialchars($u['Rol']) ?></span></td>
                         <td class="acciones-celda">
+                            <?php if (esAdmin()): ?>
                             <form method="POST" class="form-inline">
                                 <input type="hidden" name="accion"     value="cambiar_rol">
                                 <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
@@ -166,8 +173,9 @@ $colores_rol = [
                                 </select>
                                 <button type="submit" class="btn-sm btn-azul">Guardar</button>
                             </form>
+                            <?php endif; ?>
                             <button class="btn-sm btn-gris" onclick="verTicketsUsuario(<?= $u['id_usuario'] ?>, '<?= htmlspecialchars($u['Nombre']) ?>')">Ver tickets</button>
-                            <?php if ($u['id_usuario'] !== (int)$_SESSION['usuario']['id']): ?>
+                            <?php if (esAdmin() && $u['id_usuario'] !== (int)$_SESSION['usuario']['id']): ?>
                             <form method="POST" class="form-inline" onsubmit="return confirm('¿Eliminar a <?= htmlspecialchars($u['Nombre']) ?>? Esta acción no se puede deshacer.')">
                                 <input type="hidden" name="accion"     value="eliminar_usuario">
                                 <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
