@@ -89,7 +89,6 @@ body {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.13);
 }
 
-/* Versión invertida: imagen a la derecha */
 .servicio-card.reverse {
     direction: rtl;
 }
@@ -99,24 +98,12 @@ body {
 }
 
 /* ==============================
-   IMAGEN
+   IMAGEN / CARRUSEL WRAPPER
 ============================== */
 .servicio-imagen {
     position: relative;
     overflow: hidden;
-    min-height: 420px;
-}
-
-.servicio-imagen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.7s ease;
-}
-
-.servicio-card:hover .servicio-imagen img {
-    transform: scale(1.06);
+    min-height: 450px;
 }
 
 /* Badge sobre la imagen */
@@ -132,6 +119,7 @@ body {
     letter-spacing: 1px;
     padding: 6px 16px;
     border-radius: 30px;
+    z-index: 10;
 }
 
 .servicio-card.reverse .servicio-badge {
@@ -150,7 +138,6 @@ body {
     gap: 16px;
 }
 
-/* Número decorativo */
 .servicio-numero {
     font-size: 64px;
     font-weight: 700;
@@ -173,7 +160,6 @@ body {
     color: var(--accent-blue);
 }
 
-/* Línea divisoria interna */
 .servicio-divider {
     height: 3px;
     width: 40px;
@@ -187,7 +173,6 @@ body {
     line-height: 1.8;
 }
 
-/* Lista de características */
 .servicio-lista {
     list-style: none;
     padding: 0;
@@ -200,24 +185,6 @@ body {
     font-size: 14px;
     color: var(--text-main);
     font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.servicio-lista li::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--accent-blue);
-    flex-shrink: 0;
-}
-
-/* Eliminamos el checkmark duplicado si usamos el ::before */
-/* Ajuste: los ✔ ya están en el HTML, quitamos el ::before */
-.servicio-lista li {
     padding-left: 4px;
 }
 
@@ -325,7 +292,7 @@ body {
     }
 
     .servicio-imagen {
-        min-height: 280px;
+        height: 300px;
     }
 
     .servicio-card.reverse .servicio-badge {
@@ -373,32 +340,41 @@ body {
 }
 
 /* ==============================
-   CARRUSEL ANTES / DESPUÉS
+   CARRUSEL
 ============================== */
 .carrusel-wrapper {
     position: relative;
     overflow: hidden;
+    width: 100%;
+    height: 100%; /* altura fija para todas las imágenes */
 }
 
 .carrusel-slide {
-    position: absolute;
-    inset: 0;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     opacity: 0;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.6s ease-in-out;
+    z-index: 1;
     pointer-events: none;
 }
 
 .carrusel-slide.activo {
-    position: relative;
     opacity: 1;
+    z-index: 2;
     pointer-events: auto;
+    /* SIN position: relative aquí — es la clave */
 }
 
 .carrusel-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     display: block;
+    /* SIN position: absolute en la img — el slide ya ocupa todo */
 }
 
 /* Etiquetas ANTES / DESPUÉS */
@@ -414,7 +390,8 @@ body {
     padding: 5px 14px;
     border-radius: 20px;
     text-transform: uppercase;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 3;
 }
 
 .carrusel-etiqueta.despues {
@@ -427,21 +404,19 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(10, 37, 64, 0.75);
-    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
     border: none;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    font-size: 24px;
-    line-height: 1;
     cursor: pointer;
     z-index: 10;
+    font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s ease, transform 0.3s ease;
-    backdrop-filter: blur(4px);
+    transition: background 0.3s, color 0.3s;
 }
 
 .carrusel-btn:hover {
@@ -467,7 +442,7 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.45);
+    background: rgba(255, 255, 255, 0.45);
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
