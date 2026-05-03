@@ -14,4 +14,6 @@ COPY composer.json /var/composer/composer.json
 RUN composer install --no-interaction --no-dev --optimize-autoloader --prefer-dist \
     --working-dir=/var/composer
 
+COPY php/php.ini /usr/local/etc/php/conf.d/uploads.ini
+
 WORKDIR /var/www/html

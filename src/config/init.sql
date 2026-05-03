@@ -48,7 +48,29 @@ CREATE TABLE IF NOT EXISTS Solicitudes (
     mensaje TEXT NOT NULL,
     fecha_envio DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE documento_x_tickets (
+    id_documento INT NOT NULL,
+    id_ticket INT NOT NULL,
 
+    PRIMARY KEY (id_documento, id_ticket),
+
+    FOREIGN KEY (id_documento)
+        REFERENCES documentos(id_documento)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    FOREIGN KEY (id_ticket)
+        REFERENCES Ticket(id_ticket)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE documentos (
+    id_documento INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    tipo VARCHAR(50),
+    fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 
 CREATE TABLE IF NOT EXISTS password_reset (
@@ -61,9 +83,11 @@ CREATE TABLE IF NOT EXISTS password_reset (
 );
 
 INSERT INTO Servicios (Nombre, Descripcion, disponible, categoria_vehiculo) VALUES
-('Pintura completa', 'Pintura de toda la carrocería', TRUE, 'Turismo'),
-('Reparación de arañazos', 'Eliminación de arañazos superficiales', TRUE, 'Todos'),
-('Pintura de paragolpes', 'Pintura y reparación de paragolpes', TRUE, 'Todos');
+('Lijado Superficial + Pintado Entero', 'Lijado completo de carrocería, imprimación y pintado bicapa con barniz UV.', 1, 'Todos'),
+('Chapa + Pintura', 'Reparación de golpes y deformaciones en carrocería con pintado de acabado.', 1, 'Todos'),
+('Pulido Profesional', 'Eliminación de micro-arañazos y recuperación del brillo original de la pintura.', 1, 'Todos'),
+('Micro-Reparación + Pintado Selectivo', 'Reparación localizada por piezas con igualación exacta del color original.', 1, 'Todos'),
+('Restauración de Llantas', 'Reparación de arañazos y oxidación en llantas con pintura y barniz protector.', 1, 'Todos');
 
 CREATE user admin IDENTIFIED BY "admin";
 
