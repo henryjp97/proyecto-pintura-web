@@ -11,7 +11,7 @@
         </div>
         <div class="info-item">
             <span class="icon">✉️</span>
-            <p>info@finishline.com</p>
+            <p>finishlineheesni@gmail.com</p>
         </div>
         <div class="info-item">
             <span class="icon">🕒</span>

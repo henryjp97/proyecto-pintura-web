@@ -4,9 +4,9 @@ const contador = document.getElementById('char-count');
     mensaje.addEventListener('input', function() {
 
     const longitud = mensaje.value.length;
-    contador.textContent = `${longitud} / 400 caracteres`;
+    contador.textContent = `${longitud} / 500 caracteres`;
     
-    if (longitud >= 350) { //cambio de color cuando pase de 349
+    if (longitud >= 450) { //cambio de color cuando pase de 450
         contador.style.color = '#FF6B6B';
     } else {
         contador.style.color = '#718096';

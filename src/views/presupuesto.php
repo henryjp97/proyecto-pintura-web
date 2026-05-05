@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/../controllers/PresupuestoController.php';
 // Protección: solo accesible desde el ViewController
 if (!isset($listaServicios)) {
-    header("Location: /src/controllers/PresupuestoViewController.php");
+    header("Location: /src/views/presupuesto.php");
     exit();
-}
+} 
 
 $servicio_id = $servicio_id ?? '';
 
@@ -56,6 +57,11 @@ require_once __DIR__ . '/../includes/header.php';
                 <div class="form-group">
                     <label>Descripción</label>
                     <textarea name="descripcion" placeholder="Explícanos los daños..." required></textarea>
+                </div>
+
+               <div class="form-group">
+                    <label>Matricula</label>
+                    <textarea name="matricula" placeholder="Dime la matrícula..." required></textarea>
                 </div>
 
                 <div class="form-group">

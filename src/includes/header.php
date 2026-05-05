@@ -34,7 +34,7 @@ $pagina_actual = basename($_SERVER['PHP_SELF']); //ruta actual del usuario
             <a href="/src/views/galeria.php" class="<?= ($pagina_actual == 'galeria.php') ? 'active' : '' ?>">Galería</a>
             <?php if($usuarioLogueado): ?>
             <a href="/src/views/servicios.php" class="<?= ($pagina_actual == 'servicios.php') ? 'active' : '' ?>">Servicios</a>
-            <a href="/src/controllers/PresupuestoController.php" class="<?= ($pagina_actual == 'PresupuestoController.php') ? 'active' : '' ?>">Presupuesto</a>
+            <a href="/src/views/presupuesto.php" class="<?= ($pagina_actual == 'presupuesto.php') ? 'active' : '' ?>">Presupuesto</a>
             <?php else: ?>
             <a href="/src/views/contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'active' : '' ?>">Contacto</a>
             <?php endif; ?>
