@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS Ticket (
   FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
   FOREIGN KEY (id_servicio) REFERENCES Servicios(ID_servicio)
 );
+
 CREATE TABLE IF NOT EXISTS Solicitudes (
     id_solicitud INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -48,6 +49,14 @@ CREATE TABLE IF NOT EXISTS Solicitudes (
     mensaje TEXT NOT NULL,
     fecha_envio DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE documentos (
+    id_documento INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    tipo VARCHAR(50),
+    fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE documento_x_tickets (
     id_documento INT NOT NULL,
     id_ticket INT NOT NULL,
@@ -64,14 +73,6 @@ CREATE TABLE documento_x_tickets (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
-
-CREATE TABLE documentos (
-    id_documento INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    tipo VARCHAR(50),
-    fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
 
 CREATE TABLE IF NOT EXISTS password_reset (
   id         INT AUTO_INCREMENT PRIMARY KEY,
