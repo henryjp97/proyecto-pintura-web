@@ -6,16 +6,16 @@ class Ticket {
         $this->conn = $conn;
     }
 
-    public function crear(int $id_usuario, int $id_servicio, string $modelo, string $descripcion): int {
+    public function crear(int $id_usuario, int $id_servicio, string $modelo, string $descripcion, string $matricula): int {
         try {
             // He quitado una '?' y la columna de la foto, que ahora va en 'documentos'
             $stmt = $this->conn->prepare(
-                "INSERT INTO Ticket (id_usuario, id_servicio, modelo_auto, descripcion, estado, fecha_inicio)
-                 VALUES (?, ?, ?, ?, 'pendiente', NOW())"
+                "INSERT INTO Ticket (id_usuario, id_servicio, modelo_auto, descripcion, matricula , estado, fecha_inicio)
+                 VALUES (?, ?, ?, ?, ?, 'pendiente', NOW())"
             );
             
             // IMPORTANTE: Ejecutar con los datos en el orden correcto
-            if ($stmt->execute([$id_usuario, $id_servicio, $modelo, $descripcion])) {
+            if ($stmt->execute([$id_usuario, $id_servicio, $modelo, $descripcion ,$matricula])) {
                 return (int)$this->conn->lastInsertId();
             }
             

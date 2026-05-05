@@ -57,7 +57,7 @@ $usuarioLogueado = isset($_SESSION['usuario']);
             <h4>Contacto Directo</h4>
             <p class="contact-text">📍 Villaverde Bajo, Calle del Diamante, 40, Madrid, España</p>
             <p class="contact-text">📞 +34 912 345 678</p>
-            <p class="contact-text">✉️ info@finishline.com</p>
+            <p class="contact-text">✉️ finishlineheesni@gmail.com</p>
         </div>
     </div>
 

@@ -34,16 +34,68 @@
     margin: 15px 0 25px;
 }
 
-/* HISTORIA */
+/* HISTORIA - ESTRUCTURA LADO A LADO */
 .qs-historia {
     padding: 80px 0;
 }
 
 .qs-historia .qs-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    display: flex;
     align-items: center;
+    gap: 60px;
+    justify-content: space-between;
+}
+
+.qs-texto {
+    flex: 1;
+}
+
+.qs-imagen {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ============================================
+   SOLUCIÓN DEFINITIVA CARRUSEL ALTURA FIJA
+   ============================================ */
+
+#carouselHistoria {
+    height: 500px !important;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+#carouselHistoria .carousel-inner {
+    height: 500px !important;
+    overflow: hidden;
+}
+
+#carouselHistoria .carousel-item {
+    height: 500px !important;
+    overflow: hidden;
+    max-height: 500px !important;
+}
+
+#carouselHistoria .carousel-item img {
+    width: 100% !important;
+    height: 500px !important;
+    max-height: 500px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    flex-shrink: 0;
+}
+
+/* ============================================ */
+
+/* Ajuste de los textos dentro de las fotos (Captions) */
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    bottom: 20px;
 }
 
 .qs-texto h2 {
@@ -56,12 +108,6 @@
     color: #555;
     line-height: 1.8;
     margin-bottom: 15px;
-}
-
-.qs-imagen img {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
 }
 
 /* MISIÓN */
@@ -84,27 +130,9 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.07);
 }
 
-.qs-mision-card h3 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin: 15px 0 10px;
-}
-
-.qs-mision-card p {
-    color: #666;
-    line-height: 1.7;
-}
-
 /* POR QUÉ ELEGIRNOS */
 .qs-elegir {
     padding: 80px 0;
-}
-
-.qs-elegir h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a1a2e;
 }
 
 .qs-elegir-grid {
@@ -127,27 +155,10 @@
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-.qs-elegir-card h4 {
-    font-weight: 700;
-    color: #1a1a2e;
-    margin: 12px 0 8px;
-}
-
-.qs-elegir-card p {
-    color: #666;
-    font-size: 0.95rem;
-}
-
 /* EQUIPO */
 .qs-equipo {
     background-color: #f4f8fb;
     padding: 80px 0;
-}
-
-.qs-equipo h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a1a2e;
 }
 
 .qs-equipo-grid {
@@ -171,34 +182,28 @@
     border-radius: 50%;
     object-fit: cover;
 }
-.qs-equipo-card h4 {
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 5px;
-}
-
-.qs-equipo-card span {
-    color: #00aaff;
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 12px;
-}
-
-.qs-equipo-card p {
-    color: #666;
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
 
 .qs-icon {
     font-size: 2.5rem;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+/* RESPONSIVE - MÓVILES */
+@media (max-width: 992px) {
     .qs-historia .qs-container {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .divider {
+        margin: 15px auto 25px;
+    }
+
+    #carouselHistoria,
+    #carouselHistoria .carousel-inner,
+    #carouselHistoria .carousel-item,
+    #carouselHistoria .carousel-item img {
+        height: 350px !important;
+        max-height: 350px !important;
     }
 
     .qs-banner-content h1 {

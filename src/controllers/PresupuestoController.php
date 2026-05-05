@@ -24,9 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $listaServicios = $servicioModel->obtenerTodos();
     $servicio_id    = $_GET['servicio'] ?? '';
     $status         = $_GET['status']   ?? '';
-
-    include __DIR__ . '/../views/presupuesto.php';
-    exit();
+   return;
 }
 
 // ─── POST: procesar formulario ─────────────────────────────────────────────
@@ -36,13 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_servicio = (int)($_POST['servicio']      ?? 0);
     $modelo      = trim($_POST['modelo_coche']   ?? '');
     $descripcion = trim($_POST['descripcion']    ?? '');
+    $matricula = trim($_POST['matricula'] ?? '');
 
     // 1. Crear ticket
     $ticketModel = new Ticket($conn);
-    $id_ticket   = $ticketModel->crear($id_usuario, $id_servicio, $modelo, $descripcion);
+    $id_ticket   = $ticketModel->crear($id_usuario, $id_servicio, $modelo, $descripcion, $matricula);
 
     if ($id_ticket === 0) {
-        header("Location: /src/controllers/PresupuestoController.php?status=error");
+       header("Location: /src/views/presupuesto.php?status=error");
         exit();
     }
 
@@ -50,12 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contenido_binarios = [];
     $tipos_mime         = [];
     $extensiones        = [];
+    $rutas_imagenes     = [];
     $foto_nombres       = [];
 
     if (isset($_FILES['foto_vehiculo']) && is_array($_FILES['foto_vehiculo']['name'])) {
         $docModel   = new Documento($conn);
         $permitidos = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-
+        
         foreach ($_FILES['foto_vehiculo']['error'] as $i => $error) {
             if ($error !== UPLOAD_ERR_OK) continue;
 
@@ -120,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error_log("Mailer error: " . $e->getMessage());
     }
 
-    header("Location: /src/controllers/PresupuestoController.php?status=success");
+     header("Location: /src/views/presupuesto.php?status=success");
+
     exit();
 }
