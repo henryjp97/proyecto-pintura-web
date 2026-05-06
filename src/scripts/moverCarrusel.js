@@ -1,36 +1,47 @@
-function moverCarrusel(direccion) {
-        const contenedor = document.getElementById('carruselComentarios');
-        const slides = contenedor.querySelectorAll('.carousel-item');
-        const dots = contenedor.querySelectorAll('.dot');
-        
-        // Buscamos el índice actual
-        let actual = Array.from(slides).findIndex(s => s.classList.contains('active'));
+function moverCarrusel(btnODireccion, direccion) {
+    let wrapper, dir;
 
-        // Quitamos la clase activo a lo que hay ahora
-        slides[actual].classList.remove('active');
-        dots[actual].classList.remove('active');
-
-        // Calculamos el siguiente (con vuelta al principio si llega al final)
-        actual = (actual + direccion + slides.length) % slides.length;
-
-        // Añadimos la clase activo al nuevo
-        slides[actual].classList.add('active');
-        dots[actual].classList.add('active');
+    if (typeof btnODireccion === 'number') {
+        // Llamada desde el carrusel de comentarios: moverCarrusel(1)
+        wrapper = document.getElementById('carruselComentarios');
+        dir = btnODireccion;
+        var claseActivo = 'active';
+    } else {
+        // Llamada desde servicios: moverCarrusel(this, 1)
+        wrapper = btnODireccion.closest('.carrusel-wrapper');
+        dir = direccion;
+        var claseActivo = 'activo';
     }
 
-    function irASlide(indice) {
-        const contenedor = document.getElementById('carruselComentarios');
-        const slides = contenedor.querySelectorAll('.carousel-item');
-        const dots = contenedor.querySelectorAll('.dot');
+    const slides = wrapper.querySelectorAll('.carousel-item, .carrusel-slide');
+    const dots   = wrapper.querySelectorAll('.dot');
 
-        // Limpiar todos
-        slides.forEach(s => s.classList.remove('active'));
-        dots.forEach(d => d.classList.remove('active'));
+    let actual = Array.from(slides).findIndex(s => s.classList.contains(claseActivo));
 
-        // Activar el seleccionado
-        slides[indice].classList.add('active');
-        dots[indice].classList.add('active');
+    slides[actual].classList.remove(claseActivo);
+    if (dots[actual]) dots[actual].classList.remove(claseActivo);
+
+    actual = (actual + dir + slides.length) % slides.length;
+
+    slides[actual].classList.add(claseActivo);
+    if (dots[actual]) dots[actual].classList.add(claseActivo);
+}
+
+function irASlide(indice) {
+    const wrapper = document.getElementById('carruselComentarios');
+    const slides  = wrapper.querySelectorAll('.carousel-item');
+    const dots    = wrapper.querySelectorAll('.dot');
+
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d =>   d.classList.remove('active'));
+
+    slides[indice].classList.add('active');
+    dots[indice].classList.add('active');
+}
+
+// Autoplay solo para el carrusel de comentarios
+setInterval(() => {
+    if (document.getElementById('carruselComentarios')) {
+        moverCarrusel(1);
     }
-
-    // Opcional: Auto-play cada 5 segundos
-    setInterval(() => moverCarrusel(1), 5000);
+}, 5000);
