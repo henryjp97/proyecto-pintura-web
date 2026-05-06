@@ -59,7 +59,7 @@ require_once __DIR__ . '/../includes/header.php';
                 <li>✔ Pintado bicapa de alta resistencia industrial.</li>
                 <li>✔ Barnizado premium con protección UV extra.</li>
             </ul>
-            <a href="/src/controllers/PresupuestoController.php" class="btn-precio">
+            <a href="/src/views/presupuesto.php" class="btn-precio">
                 <span>Consultar Presupuesto</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
@@ -104,7 +104,7 @@ require_once __DIR__ . '/../includes/header.php';
                 <li>✔ Masilla, lijado fino y pintura de acabado</li>
                 <li>✔ Resultado sin rastro del daño original</li>
             </ul>
-            <a href="/src/controllers/PresupuestoController.php" class="btn-precio">
+            <a href="/src/views/presupuesto.php" class="btn-precio">
                 <span>Consultar Presupuesto</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
@@ -145,7 +145,7 @@ require_once __DIR__ . '/../includes/header.php';
                 <li>✔ Pulido con maquinaria orbital profesional</li>
                 <li>✔ Acabado con cera o sellado cerámico opcional</li>
             </ul>
-            <a href="/src/controllers/PresupuestoController.php" class="btn-precio">
+            <a href="/src/views/presupuesto.php" class="btn-precio">
                 <span>Consultar Presupuesto</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
@@ -183,7 +183,7 @@ require_once __DIR__ . '/../includes/header.php';
                 <li>✔ Reparación Focalizada: Ideal para parachoques y puertas.</li>
                 <li>✔ Entrega Express: Reparación rápida al trabajar por paneles.</li>
             </ul>
-            <a href="/src/controllers/PresupuestoController.php" class="btn-precio">
+            <a href="/src/views/presupuesto.php" class="btn-precio">
                 <span>Consultar Presupuesto</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
@@ -232,7 +232,7 @@ require_once __DIR__ . '/../includes/header.php';
             <li>✔ Pintura en color original o personalizado a tu elección.</li>
             <li>✔ Barniz protector de acabado brillante o mate.</li>
         </ul>
-        <a href="/src/controllers/PresupuestoController.php" class="btn-precio">
+        <a href="/src/views/presupuesto.php" class="btn-precio">
             <span>Consultar Presupuesto</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
