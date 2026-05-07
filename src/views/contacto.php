@@ -1,19 +1,9 @@
-<?php 
-session_start();
-require_once __DIR__ . '/../includes/header.php'; 
+<?php
+require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinishLine - Pintura Industrial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/src/styles/Contacto.css">
-</head>
+<link rel="stylesheet" href="/src/styles/Contacto.css">
 
-<?php if (!isset($_SESSION['usuario'])): ?>
 <main class="contact-container">
     <div class="contact-header">
         <h1>Contacta con <span>Nosotros</span></h1>
@@ -22,13 +12,21 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
 
     <div class="contact-content">
-        <div class="contact-content">
-        <!-- REUTILIZAMOS AQUÍ -->
+
         <?php include __DIR__ . '/../includes/info_contacto.php'; ?>
-        </div>
 
         <div class="contact-form-container">
-            <form action="#" method="POST" class="modern-form">
+            <?php if (isset($_GET['status']) && $_GET['status'] === 'success'): ?>
+        <div id="alert-box" class="alert alert-success" style="display:block;">
+           ✅ Solicitud enviada correctamente.
+        </div>
+    <?php endif; ?>
+
+            <div id="alert-box" class="alert" style="display:none;"></div>
+
+            <!-- ✅ action corregido -->
+            <form id="form-contacto" action="/src/controllers/ContactoController.php" method="POST">
+
                 <div class="form-group">
                     <label for="nombre">Nombre Completo</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Tu nombre..." required>
@@ -41,27 +39,30 @@ require_once __DIR__ . '/../includes/header.php';
 
                 <div class="form-group">
                     <label for="asunto">Asunto</label>
+                    <!-- ✅ opciones alineadas con la validación del controller -->
                     <select id="asunto" name="asunto">
                         <option value="tecnico">Asesoría Técnica</option>
+                        
                         <option value="otros">Otros</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" name="mensaje" rows="5" maxlength="400" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
-                    <div id="char-count" class="char-counter">0 / 400 caracteres</div>
+                    <textarea id="mensaje" name="mensaje" rows="5" maxlength="500"
+                              placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+                    <div id="char-count" class="char-counter">0 / 500 caracteres</div>
                 </div>
+
                 
-                <script src="/src/scripts/ContadorContacto.js"></script> <!-- Script maximo de caracteres  -->
 
                 <button type="submit" class="btn-submit">Enviar Mensaje</button>
+
             </form>
         </div>
-
     </div>
 </main>
-<?php endif; ?>
+
+<script src="/src/scripts/ContadorContacto.js"></script>
+
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
-</body>
-</html>
