@@ -10,7 +10,7 @@ class Ticket {
         try {
             // He quitado una '?' y la columna de la foto, que ahora va en 'documentos'
             $stmt = $this->conn->prepare(
-                "INSERT INTO Ticket (id_usuario, id_servicio, modelo_auto, descripcion, matricula , estado, fecha_inicio)
+                "INSERT INTO Ticket (id_usuario, id_servicio, modelo_auto, descripcion, matricula, estado, fecha_inicio)
                  VALUES (?, ?, ?, ?, ?, 'pendiente', NOW())"
             );
             
