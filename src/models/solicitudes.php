@@ -20,7 +20,7 @@ class SolicitudModel
         $stmt = $this->conn->prepare($sql);
 
         // ✅ Bindeamos id_usuario explícitamente para forzar NULL correcto
-        $stmt->bindValue(':id_usuario', $data['id_usuario'] ?? null, 
+        $stmt->bindValue(':id_usuario', $data['id_usuario'] ?? null,
             $data['id_usuario'] ? PDO::PARAM_INT : PDO::PARAM_NULL);
         $stmt->bindValue(':nombre',  $data['nombre'],  PDO::PARAM_STR);
         $stmt->bindValue(':correo',  $data['correo'],  PDO::PARAM_STR);

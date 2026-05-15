@@ -6,8 +6,11 @@
             <p>Villaverde Bajo, Calle del Diamante, 40, Madrid, España</p>
         </div>
         <div class="info-item">
-            <span class="icon">📞</span>
-            <p>+34 912 345 678</p>
+            <a href="https://api.whatsapp.com/send?phone=+34652955253&text=Hola" target="_blank">
+            <img src="https://paintcentermadrid.es/onewebmedia/wass-removebg-preview.png" alt="WhatsApp Banner" width="50" height="50">    
+        </a>
+        <p>+34 652955253</p>  
+            
         </div>
         <div class="info-item">
             <span class="icon">✉️</span>

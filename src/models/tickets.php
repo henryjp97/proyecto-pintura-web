@@ -13,20 +13,20 @@ class Ticket {
                 "INSERT INTO Ticket (id_usuario, id_servicio, modelo_auto, descripcion, matricula, estado, fecha_inicio)
                  VALUES (?, ?, ?, ?, ?, 'pendiente', NOW())"
             );
-            
+
             // IMPORTANTE: Ejecutar con los datos en el orden correcto
             if ($stmt->execute([$id_usuario, $id_servicio, $modelo, $descripcion ,$matricula])) {
                 return (int)$this->conn->lastInsertId();
             }
-            
+
             return 0;
-          
+
         } catch (PDOException $e) {
             error_log("Error en Ticket::crear -> " . $e->getMessage());
             return 0;
         }
     }
-    
+
 
     public function getUltimoId(): int {
         return (int)$this->conn->lastInsertId();

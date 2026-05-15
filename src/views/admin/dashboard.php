@@ -40,10 +40,10 @@
     <div class="tabla-wrapper">
         <table class="admin-tabla">
             <thead>
-                <tr><th>#</th><th>Cliente</th><th>Servicio</th><th>Matrícula</th><th>Estado</th><th>Presupuesto</th></tr>
+            <tr><th>#</th><th>Cliente</th><th>Servicio</th><th>Matrícula</th><th>Estado</th><th>Presupuesto</th></tr>
             </thead>
             <tbody>
-                <?php foreach (array_slice($tickets, 0, 5) as $t): ?>
+            <?php foreach (array_slice($tickets, 0, 5) as $t): ?>
                 <tr>
                     <td>#<?= $t['id_ticket'] ?></td>
                     <td><?= htmlspecialchars($t['Nombre'] . ' ' . $t['Apellido']) ?></td>
@@ -56,7 +56,7 @@
                     </td>
                     <td><?= $t['presupuesto'] ? number_format($t['presupuesto'], 2) . ' €' : '—' ?></td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>

@@ -17,3 +17,6 @@ RUN composer install --no-interaction --no-dev --optimize-autoloader --prefer-di
 COPY php/php.ini /usr/local/etc/php/conf.d/uploads.ini
 
 WORKDIR /var/www/html
+
+# Instalar y habilitar Xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
