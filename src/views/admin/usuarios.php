@@ -42,10 +42,7 @@
                         </form>
                         <?php endif; ?>
 
-                        <button class="btn-sm btn-gris"
-                            onclick="verTicketsUsuario(<?= $u['id_usuario'] ?>, '<?= htmlspecialchars($u['Nombre']) ?>')">
-                            Ver tickets
-                        </button>
+
 
                         <?php if (esAdmin() && $u['id_usuario'] !== (int)$_SESSION['usuario']['id']): ?>
                         <form method="POST" class="form-inline"

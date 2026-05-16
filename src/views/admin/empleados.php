@@ -3,8 +3,9 @@
 /**
  * empleados.php
  * Vista admin: lista de empleados + formulario añadir empleado
- */
-?>
+ * <?php /** @var string $tipoMensajeEmpleado @var string $mensajeEmpleado */ ?>
+
+
 <section class="tab-content" id="tab-empleados">
     <div class="empleados-header">
         <h1 class="admin-titulo">Empleados</h1>
