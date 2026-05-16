@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <h2 class="admin-subtitulo">Últimos 5 tickets</h2>
+    <h2 class="admin-subtitulo" >Últimos 5 tickets</h2>
     <div class="tabla-wrapper">
         <table class="admin-tabla">
             <thead>

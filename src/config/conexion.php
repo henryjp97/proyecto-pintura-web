@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('Europe/Madrid');
 class Database {
     private string $host;
     private string $db_name;
@@ -8,6 +8,7 @@ class Database {
     private string $charset = 'utf8mb4';
 
     private ?PDO $conn = null;
+
 
     public function __construct() {
         $this->host     = 'db';
@@ -25,6 +26,7 @@ class Database {
 
         try {
             $this->conn = new PDO($dsn, $this->username, $this->password);
+            $this->conn->exec("SET time_zone = 'Europe/Madrid'");
             $this->conn->setAttribute(PDO::ATTR_ERRMODE,            PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES,   false);

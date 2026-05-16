@@ -11,13 +11,15 @@
  *
  * Variables esperadas:
  * @var array $empleados   [['id_usuario'=>..., 'Nombre'=>..., 'Apellido'=>...], ...]
+ * @var array $respuestasPorSolicitud
  */
 ?>
 
 <!-- Backdrop -->
 <div class="modal-backdrop" id="modalResponderBackdrop" onclick="cerrarModalResponder()"></div>
-<!-- Backdrop -->
 <div class="modal-backdrop" id="modalRespuestasBackdrop" onclick="cerrarModalRespuestas()"></div>
+<div class="modal-backdrop" id="modalVerNotasBackdrop" onclick="cerrarModalVerNotas()"></div>
+
 
 <!-- Modal Respuestas -->
 <div class="modal" id="modalRespuestas">
@@ -29,6 +31,19 @@
         <div id="modalRespuestasContenido"></div>
         <div class="modal-footer-btns" style="margin-top:1rem">
             <button onclick="cerrarModalRespuestas()" class="btn-sm btn-gris">Cerrar</button>
+        </div>
+    </div>
+</div>
+<!-- Modal Ver Notas -->
+<div class="modal" id="modalVerNotas">
+    <div class="modal-header">
+        <h3>📋 Historial de notas</h3>
+        <button onclick="cerrarModalVerNotas()" class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div id="cuerpoVerNotas"></div>
+        <div class="modal-footer-btns" style="margin-top:1rem">
+            <button onclick="cerrarModalVerNotas()" class="btn-sm btn-gris">Cerrar</button>
         </div>
     </div>
 </div>
@@ -100,12 +115,6 @@
         </form>
     </div>
 </div>
-<?php
-/**
- * modal_responder_solicitud.php
- */
-?>
-
 <!-- Backdrop -->
 <div class="modal-backdrop" id="modalResponderSolicitudBackdrop" onclick="cerrarModalResponderSolicitud()"></div>
 <!-- Backdrop -->
@@ -167,15 +176,8 @@
 
 <!-- ── Script solicitudes ───────────────────────────────────────── -->
 <script>
-    const respuestasPorSolicitud = <?= json_encode(
-            array_column(
-                    array_map(fn($s) => [
-                            'id'         => $s['id_solicitud'],
-                            'respuestas' => $admin->getRespuestasSolicitud((int)$s['id_solicitud'])
-                    ], $solicitudes),
-                    'respuestas', 'id'
-            )
-    ) ?>;
+    const respuestasPorSolicitud = <?= json_encode($respuestasPorSolicitud) ?>;
+
 
     function abrirModalRespuestasSolicitud(idSolicitud) {
         const respuestas = respuestasPorSolicitud[idSolicitud] || [];

@@ -26,7 +26,7 @@ CREATE TABLE `Autenticacion` (
   `id_autenticacion` int NOT NULL AUTO_INCREMENT,
   `password_hash` varchar(255) NOT NULL,
   PRIMARY KEY (`id_autenticacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `Autenticacion` (
 
 LOCK TABLES `Autenticacion` WRITE;
 /*!40000 ALTER TABLE `Autenticacion` DISABLE KEYS */;
-INSERT INTO `Autenticacion` VALUES (1,'$2y$10$5DFyRDE.6696z6vlum1e7O6g91tOullTcrqxQGTZ1va4Jtvn9qe12'),(2,'$2y$10$9z.se8UMs58HjmU0vPEUwu74enFXfqIc2KafcXRZ0rvXvitTO546u'),(3,'$2y$10$xA6uFNljJmafeK5HHnySZO4fw6sgs1VS.FUtI3jHttZ6FChN12ZHm'),(4,'$2y$10$5DFyRDE.6696z6vlum1e7O6g91tOullTcrqxQGTZ1va4Jtvn9qe12'),(5,'$2y$10$ZnRePg33ZPd8748kUxmereTrVhVVfX3XOOxYXli7pfc8v6azrgqbu');
+INSERT INTO `Autenticacion` VALUES (1,'$2y$10$5DFyRDE.6696z6vlum1e7O6g91tOullTcrqxQGTZ1va4Jtvn9qe12'),(2,'$2y$10$9z.se8UMs58HjmU0vPEUwu74enFXfqIc2KafcXRZ0rvXvitTO546u'),(3,'$2y$10$xA6uFNljJmafeK5HHnySZO4fw6sgs1VS.FUtI3jHttZ6FChN12ZHm'),(4,'$2y$10$5DFyRDE.6696z6vlum1e7O6g91tOullTcrqxQGTZ1va4Jtvn9qe12'),(5,'$2y$10$ZnRePg33ZPd8748kUxmereTrVhVVfX3XOOxYXli7pfc8v6azrgqbu'),(7,'$2y$10$Vdiglsek4pr0yMP8tUE9eOx.Ks8.1A3RiEwvnFWsDuXUcXJ4kZpha');
 /*!40000 ALTER TABLE `Autenticacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,9 +83,9 @@ CREATE TABLE `Respuesta_x_solicitud` (
   `respuesta` text NOT NULL,
   `fecha_respuesta` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_respuesta`),
-  KEY `fk_rxs_solicitud` (`id_solicitud`),
+  UNIQUE KEY `uq_solicitud` (`id_solicitud`),
   CONSTRAINT `fk_rxs_solicitud` FOREIGN KEY (`id_solicitud`) REFERENCES `Solicitudes` (`id_solicitud`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `Respuesta_x_solicitud` (
 
 LOCK TABLES `Respuesta_x_solicitud` WRITE;
 /*!40000 ALTER TABLE `Respuesta_x_solicitud` DISABLE KEYS */;
-INSERT INTO `Respuesta_x_solicitud` VALUES (1,1,'fffffffffff','2026-05-15 17:25:10'),(2,1,'hyhyhyhyh','2026-05-15 17:33:40');
+INSERT INTO `Respuesta_x_solicitud` VALUES (1,1,'fffffffffff','2026-05-15 17:25:10'),(5,14,'dddddd','2026-05-16 10:45:34'),(7,13,'tonto','2026-05-16 10:59:27'),(8,12,'123','2026-05-16 11:06:36'),(9,15,'yo te ayudo','2026-05-16 12:21:14'),(10,16,'215825','2026-05-16 13:18:51');
 /*!40000 ALTER TABLE `Respuesta_x_solicitud` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +113,7 @@ CREATE TABLE `Respuesta_x_ticket` (
   PRIMARY KEY (`id_respuesta`),
   KEY `fk_rxt_ticket` (`id_ticket`),
   CONSTRAINT `fk_rxt_ticket` FOREIGN KEY (`id_ticket`) REFERENCES `Ticket` (`id_ticket`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `Respuesta_x_ticket` (
 
 LOCK TABLES `Respuesta_x_ticket` WRITE;
 /*!40000 ALTER TABLE `Respuesta_x_ticket` DISABLE KEYS */;
-INSERT INTO `Respuesta_x_ticket` VALUES (1,47,'123 probando','2026-05-15 16:38:13'),(2,47,'Hola que tal , sigues ahi?','2026-05-15 16:39:02');
+INSERT INTO `Respuesta_x_ticket` VALUES (1,47,'123 probando','2026-05-15 16:38:13'),(2,47,'Hola que tal , sigues ahi?','2026-05-15 16:39:02'),(3,47,'Una pregunta','2026-05-16 07:56:05'),(4,47,'Ya te pregunte','2026-05-16 07:56:21'),(5,47,'ya esata?','2026-05-16 09:59:49'),(6,48,'rrr','2026-05-16 12:49:18');
 /*!40000 ALTER TABLE `Respuesta_x_ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +169,7 @@ CREATE TABLE `Solicitudes` (
   `fecha_envio` datetime DEFAULT CURRENT_TIMESTAMP,
   `estado` enum('pendiente','en_proceso','respondida') DEFAULT 'pendiente',
   PRIMARY KEY (`id_solicitud`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +178,7 @@ CREATE TABLE `Solicitudes` (
 
 LOCK TABLES `Solicitudes` WRITE;
 /*!40000 ALTER TABLE `Solicitudes` DISABLE KEYS */;
-INSERT INTO `Solicitudes` VALUES (1,'henry','henrycf97@gmail.com','tecnico','vhrtrthtrhtrhrt','2026-05-05 13:49:57','pendiente'),(2,'henry','henrycf97@gmail.com','tecnico','vhrtrthtrhtrhrtbfgb','2026-05-05 13:50:43','pendiente'),(3,'henry','e@gf.com','tecnico','fffffffffffffffff','2026-05-05 13:53:14','pendiente'),(4,'loco','e@gf.com','tecnico','fffffffffffffffff','2026-05-05 13:56:21','pendiente'),(5,'henry','e@gf.com','tecnico','hhhhhhhhhhh','2026-05-05 14:08:54','pendiente'),(6,'fefe','henrycf97@gmail.com','tecnico','ffffffffffffff','2026-05-05 14:09:13','pendiente'),(7,'topo','topo@gm.conm','tecnico','topotafdefefe','2026-05-05 14:13:37','pendiente'),(8,'topo','topo@gm.conm','tecnico','veevev9o90p0','2026-05-06 18:28:05','pendiente'),(9,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:27','pendiente'),(10,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:47','pendiente'),(11,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:56','pendiente'),(12,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:17:02','pendiente'),(13,'fefe','henrycf97@gmail.com','tecnico','12fefefefefe','2026-05-08 19:50:10','pendiente'),(14,'henry','henrycf97@gmail.com','tecnico','ddddddddddddddddddddddd','2026-05-12 21:36:04','pendiente');
+INSERT INTO `Solicitudes` VALUES (1,'henry','henrycf97@gmail.com','tecnico','vhrtrthtrhtrhrt','2026-05-05 13:49:57','pendiente'),(2,'henry','henrycf97@gmail.com','tecnico','vhrtrthtrhtrhrtbfgb','2026-05-05 13:50:43','pendiente'),(3,'henry','e@gf.com','tecnico','fffffffffffffffff','2026-05-05 13:53:14','pendiente'),(4,'loco','e@gf.com','tecnico','fffffffffffffffff','2026-05-05 13:56:21','pendiente'),(5,'henry','e@gf.com','tecnico','hhhhhhhhhhh','2026-05-05 14:08:54','pendiente'),(6,'fefe','henrycf97@gmail.com','tecnico','ffffffffffffff','2026-05-05 14:09:13','pendiente'),(7,'topo','topo@gm.conm','tecnico','topotafdefefe','2026-05-05 14:13:37','pendiente'),(8,'topo','topo@gm.conm','tecnico','veevev9o90p0','2026-05-06 18:28:05','pendiente'),(9,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:27','pendiente'),(10,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:47','pendiente'),(11,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:56','pendiente'),(12,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:17:02','respondida'),(13,'fefe','henrycf97@gmail.com','tecnico','12fefefefefe','2026-05-08 19:50:10','respondida'),(14,'henry','henrycf97@gmail.com','tecnico','ddddddddddddddddddddddd','2026-05-12 21:36:04','pendiente'),(15,'henry','henrycf97@gmail.com','tecnico','hola ayudame por favor','2026-05-16 12:14:32','respondida'),(16,'1332','123@fe.com','tecnico','2132123123213231','2026-05-16 12:30:56','respondida');
 /*!40000 ALTER TABLE `Solicitudes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +211,7 @@ CREATE TABLE `Ticket` (
   CONSTRAINT `Ticket_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `Usuario` (`id_usuario`),
   CONSTRAINT `Ticket_ibfk_2` FOREIGN KEY (`id_servicio`) REFERENCES `Servicios` (`id_servicio`),
   CONSTRAINT `Ticket_ibfk_3` FOREIGN KEY (`id_empleado`) REFERENCES `Usuario` (`id_usuario`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +220,7 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (1,1,4,'fefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(2,1,5,'fefefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'ferfefe',NULL,NULL),(3,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(4,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(5,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(6,1,4,'ewfwe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'123',NULL,NULL),(7,1,5,'fefefefefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(8,1,5,'fefefefefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(9,1,4,'fefefefefefefefefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(10,1,6,'fefef',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(11,1,6,'dwdw',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(12,1,5,'fefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'fefeffefef',NULL,NULL),(13,1,4,'fefef',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(14,1,4,'dede',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'focus',NULL,NULL),(15,1,6,'fefe',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'topo',NULL,NULL),(16,1,5,'+6+3',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(17,1,6,'dede',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(18,1,5,'dwdwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(19,1,4,'fefef',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(20,1,4,'dwdw',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdwdw',NULL,NULL),(21,1,4,'fefe',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'defe',NULL,NULL),(22,1,4,'dwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(23,1,5,'fef',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'fef',NULL,NULL),(24,1,5,'dwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(25,1,4,'Una aleta mal','1581FLT','2026-05-04',NULL,NULL,'pendiente',NULL,'ford focus',NULL,NULL),(26,1,5,'1221','21212','2026-05-04',NULL,NULL,'pendiente',NULL,'ford focus',NULL,NULL),(27,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(28,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(29,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(30,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(31,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(32,1,5,'vdvdv','vdvdv','2026-05-04',NULL,NULL,'pendiente',NULL,'sdvdvd',NULL,NULL),(33,1,4,'ddd','ddd','2026-05-04',NULL,NULL,'pendiente',NULL,'dd',NULL,NULL),(34,1,5,'vdvd','vdvdvdvdv','2026-05-04',NULL,NULL,'pendiente',NULL,'ddv',NULL,NULL),(35,1,4,'561564','68955648','2026-05-04',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(36,1,4,'561564','68955648','2026-05-04',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(37,1,6,'dsadsa','dsad','2026-05-04',NULL,NULL,'pendiente',NULL,'dd',NULL,NULL),(38,1,4,'fefef','effef','2026-05-04',NULL,NULL,'pendiente',NULL,'ffff',NULL,NULL),(39,1,4,'fefefe','fefefe','2026-05-05',NULL,123123.00,'en proceso',NULL,'fefe',1,'12312312'),(40,1,4,'fefe','fefe','2026-05-05',NULL,NULL,'pendiente',NULL,'eeee',NULL,NULL),(41,1,4,'rgrg','grgr','2026-05-05',NULL,232.00,'cancelado',NULL,'ggrg',4,'Hola , después de analizar las fotos y los daños a reparar se valora toda la mano de obra .'),(42,1,4,'Paragolpes por pintar','1581FLT','2026-05-05',NULL,324234.00,'en proceso',NULL,'ford focus',4,'efe'),(45,2,4,'Prueba desde Postman','1234ABC','2026-05-09',NULL,34.00,'en proceso',NULL,'bmw Serie3',4,'grgr'),(47,5,4,'dddd','ddddddd','2026-05-12',NULL,3434.00,'completado',NULL,'dddd',1,'Hola que tal , sigues ahi?');
+INSERT INTO `Ticket` VALUES (1,1,4,'fefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(2,1,5,'fefefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'ferfefe',NULL,NULL),(3,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(4,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(5,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(6,1,4,'ewfwe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'123',NULL,NULL),(7,1,5,'fefefefefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(8,1,5,'fefefefefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(9,1,4,'fefefefefefefefefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(10,1,6,'fefef',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(11,1,6,'dwdw',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(12,1,5,'fefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'fefeffefef',NULL,NULL),(13,1,4,'fefef',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(14,1,4,'dede',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'focus',NULL,NULL),(15,1,6,'fefe',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'topo',NULL,NULL),(16,1,5,'+6+3',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(17,1,6,'dede',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(18,1,5,'dwdwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(19,1,4,'fefef',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(20,1,4,'dwdw',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdwdw',NULL,NULL),(21,1,4,'fefe',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'defe',NULL,NULL),(22,1,4,'dwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(23,1,5,'fef',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'fef',NULL,NULL),(24,1,5,'dwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(25,1,4,'Una aleta mal','1581FLT','2026-05-04',NULL,NULL,'pendiente',NULL,'ford focus',NULL,NULL),(26,1,5,'1221','21212','2026-05-04',NULL,NULL,'pendiente',NULL,'ford focus',NULL,NULL),(27,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(28,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(29,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(30,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(31,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(32,1,5,'vdvdv','vdvdv','2026-05-04',NULL,NULL,'pendiente',NULL,'sdvdvd',NULL,NULL),(33,1,4,'ddd','ddd','2026-05-04',NULL,NULL,'pendiente',NULL,'dd',NULL,NULL),(34,1,5,'vdvd','vdvdvdvdv','2026-05-04',NULL,NULL,'pendiente',NULL,'ddv',NULL,NULL),(35,1,4,'561564','68955648','2026-05-04',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(36,1,4,'561564','68955648','2026-05-04',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(37,1,6,'dsadsa','dsad','2026-05-04',NULL,NULL,'pendiente',NULL,'dd',NULL,NULL),(38,1,4,'fefef','effef','2026-05-04',NULL,NULL,'pendiente',NULL,'ffff',NULL,NULL),(39,1,4,'fefefe','fefefe','2026-05-05',NULL,123123.00,'en proceso',NULL,'fefe',1,'12312312'),(40,1,4,'fefe','fefe','2026-05-05',NULL,NULL,'pendiente',NULL,'eeee',NULL,NULL),(41,1,4,'rgrg','grgr','2026-05-05',NULL,232.00,'cancelado',NULL,'ggrg',4,'Hola , después de analizar las fotos y los daños a reparar se valora toda la mano de obra .'),(42,1,4,'Paragolpes por pintar','1581FLT','2026-05-05',NULL,324234.00,'en proceso',NULL,'ford focus',4,'efe'),(45,2,4,'Prueba desde Postman','1234ABC','2026-05-09',NULL,34.00,'en proceso',NULL,'bmw Serie3',4,'grgr'),(47,5,4,'dddd','ddddddd','2026-05-12',NULL,3434.00,'pendiente',NULL,'dddd',1,'ya esata?'),(48,3,4,'fff','ffff','2026-05-16',NULL,44.00,'en proceso',NULL,'ffff',5,'rrr');
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,7 +242,7 @@ CREATE TABLE `Usuario` (
   PRIMARY KEY (`id_usuario`),
   KEY `id_autenticacion` (`id_autenticacion`),
   CONSTRAINT `Usuario_ibfk_1` FOREIGN KEY (`id_autenticacion`) REFERENCES `Autenticacion` (`id_autenticacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +251,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,1,'Henry','Cantoral','12345678','henry@test.com','empleado'),(2,2,'Pope','cito','12358','pope@e.com','empleado'),(3,3,'proyecto','daw','12','pro@e.daw','cliente'),(4,4,'Admin','Principal','652955253','finishlineheesni@gmail.com','admin'),(5,5,'Henry','Cantoral','652955253','henrycf97@gmail.com','cliente');
+INSERT INTO `Usuario` VALUES (1,1,'Henry','Cantoral','12345678','henry@test.com','cliente'),(2,2,'Pope','cito','12358','pope@e.com','empleado'),(3,3,'proyecto','daw','12','pro@e.daw','cliente'),(4,4,'Admin','Principal','652955253','finishlineheesni@gmail.com','admin'),(5,5,'Henry','Cantoral','652955253','henrycf97@gmail.com','empleado'),(7,7,'Jean','Cantoral','6142','1@f.com','empleado');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,37 +339,6 @@ LOCK TABLES `password_reset` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ticket_notas`
---
-
-DROP TABLE IF EXISTS `ticket_notas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ticket_notas` (
-  `id_nota` int NOT NULL AUTO_INCREMENT,
-  `id_ticket` int NOT NULL,
-  `id_usuario` int NOT NULL,
-  `nota` text NOT NULL,
-  `fecha` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_nota`),
-  KEY `fk_nota_ticket` (`id_ticket`),
-  KEY `fk_nota_usuario` (`id_usuario`),
-  CONSTRAINT `fk_nota_ticket` FOREIGN KEY (`id_ticket`) REFERENCES `Ticket` (`id_ticket`) ON DELETE CASCADE,
-  CONSTRAINT `fk_nota_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `Usuario` (`id_usuario`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ticket_notas`
---
-
-LOCK TABLES `ticket_notas` WRITE;
-/*!40000 ALTER TABLE `ticket_notas` DISABLE KEYS */;
-INSERT INTO `ticket_notas` VALUES (1,39,1,'esta en proceso de lijado','2026-05-12 21:58:55');
-/*!40000 ALTER TABLE `ticket_notas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping routines for database 'finishline_db'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -382,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-15 21:08:17
+-- Dump completed on 2026-05-16 13:33:10
