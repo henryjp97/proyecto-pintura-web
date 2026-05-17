@@ -10,7 +10,15 @@
 
 <section class="tab-content" id="tab-usuarios">
     <h1 class="admin-titulo">Gestión de Usuarios</h1>
-    <input type="text" id="buscadorUsuarios" placeholder="🔍 Buscar por nombre, correo o rol..." class="buscador-input">
+    <input type="text" id="buscadorUsuarios" placeholder="🔍 Buscar por nombre, correo o rol..." class="buscador-input"
+    oninput="filtrarPorUsuarios()">
+    <select id="filtroRol" class="select-rol" onchange="filtrarPorUsuarios()">
+        <option value="">Todos los roles</option>
+        <option value="admin">Admin</option>
+        <option value="empleado">Empleado</option>
+        <option value="cliente">Cliente</option>
+    </select>
+
     <div class="tabla-wrapper">
         <table class="admin-tabla" id="tablaUsuarios">
             <thead>
@@ -58,4 +66,22 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function filtrarPorUsuarios() {
+            const q   = document.getElementById('buscadorUsuarios').value.toLowerCase();
+            const rol = document.getElementById('filtroRol').value.toLowerCase();
+
+            document.querySelectorAll('#tablaUsuarios tbody tr').forEach(fila => {
+                const nombre = fila.querySelector('td:nth-child(2)')?.textContent.toLowerCase() ?? '';
+                const correo = fila.querySelector('td:nth-child(3)')?.textContent.toLowerCase() ?? '';
+                const celdaRol = fila.querySelector('td:nth-child(5)')?.textContent.toLowerCase().trim() ?? '';
+
+                const coincideTexto = nombre.includes(q) || correo.includes(q);
+                const coincideRol   = rol === '' || celdaRol.includes(rol);
+
+                fila.style.display = (coincideTexto && coincideRol) ? '' : 'none';
+            });
+        }
+
+    </script>
 </section>

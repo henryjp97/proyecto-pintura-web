@@ -160,7 +160,9 @@ require_once __DIR__ . '/../config/conexion.php';
             <div class="divider mx-auto"></div>
             <div class="qs-equipo-grid">
                 <div class="qs-equipo-card">
-                    <div class="qs-avatar">👤</div>
+                    <div class="qs-avatar">
+                        <img src="/img/Nico.jpeg" alt="Nicolas Arribas">
+                    </div>
                     <h4>Nicolás Arribas Jiménez</h4>
                     <span>Director Técnico</span>
                     <p>Líder experto en proyectos de pintura industrial.</p>

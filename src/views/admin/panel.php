@@ -161,6 +161,6 @@ function esAdmin(): bool {
         e.target.classList.add('activo');
     }
 </script>
-<script src="/src/scripts/darkmode.js"></script>
+<script src="/src/scripts/darkMode.js"></script>
 </body>
 </html>

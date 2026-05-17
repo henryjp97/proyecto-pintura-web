@@ -12,6 +12,7 @@ require_once __DIR__ . '/../includes/header.php';
     <title>FinishLine - Servicios</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/styles/Servicios.css">
+    <link rel="stylesheet" href="/src/styles/Footer.css">
 </head>
 
 <main class="servicios-container">
@@ -115,7 +116,7 @@ require_once __DIR__ . '/../includes/header.php';
     <div class="servicio-card reverse" id="pulido">
         <div class="servicio-imagen carrusel-wrapper">
     <div class="carrusel-slide activo">
-        <img src="/img/Pulido1.jpeg" alt="Antes del pulido">
+        <img src="/img/imagen11.jpeg" alt="Antes del pulido">
     </div>
     <div class="carrusel-slide">
         <img src="/img/Pulido2.jpeg" alt="Resultado del pulido">
@@ -196,22 +197,15 @@ require_once __DIR__ . '/../includes/header.php';
 <div class="servicio-card" id="restauracion-llantas">
     <div class="servicio-imagen carrusel-wrapper">
         <div class="carrusel-slide activo">
-            <img src="/img/imagen13.jpeg" alt="Llanta dañada antes de restaurar">
-            <div class="carrusel-etiqueta">ANTES</div>
+            <img src="/img/Llanta.png" alt="Llanta1">
         </div>
         <div class="carrusel-slide">
-            <img src="/img/imagen14.jpeg" alt="Proceso de restauración de llanta">
-            <div class="carrusel-etiqueta">PROCESO</div>
-        </div>
-        <div class="carrusel-slide">
-            <img src="/img/imagen15.jpeg" alt="Llanta restaurada terminada">
-            <div class="carrusel-etiqueta despues">DESPUÉS</div>
+            <img src="/img/Llanta3.png" alt="Llanta2">
         </div>
         <button class="carrusel-btn prev" onclick="moverCarrusel(this, -1)">&#8249;</button>
         <button class="carrusel-btn next" onclick="moverCarrusel(this, 1)">&#8250;</button>
         <div class="carrusel-dots">
             <span class="dot activo"></span>
-            <span class="dot"></span>
             <span class="dot"></span>
         </div>
         <div class="servicio-badge">Llantas como nuevas</div>
@@ -241,16 +235,14 @@ require_once __DIR__ . '/../includes/header.php';
 
     <script src="/src/scripts/moverCarrusel.js"></script> <!-- Mover foto chapa y pintura  -->
 
-
     <div class="servicios-cta">
         <h3>¿No encuentras lo que buscas?</h3>
         <p>Contacta con nuestro equipo y te asesoramos sin compromiso sobre cualquier trabajo de chapa y pintura.</p>
-        <a href="/src/controllers/PresupuestoController.php" class="btn-cta-final">Hablar con un especialista</a>
+        <a href="/src/views/presupuesto.php" class="btn-cta-final">Hablar con un especialista</a>
     </div>
 
 </main>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
 
-</body>
 </html>
