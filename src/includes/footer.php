@@ -9,7 +9,7 @@ $usuarioLogueado = isset($_SESSION['usuario']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinishLine - Pintura Industrial</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/src/styles/footer.css"> 
+    <link rel="stylesheet" href="/src/styles/Footer.css">
 </head>
 
 <footer class="main-footer">
@@ -31,17 +31,21 @@ $usuarioLogueado = isset($_SESSION['usuario']);
 
         <div class="footer-col">
             <h4>Navegación</h4>
-            <ul>
+            <ul style="padding-left: 0;">
                 <li><a href="/index.php">Inicio</a></li>
                 <li><a href="/src/views/quienes_somos.php">Quiénes Somos</a></li>
                 <li><a href="/src//views/galeria.php">Galería de Proyectos</a></li>
-                <li><a href="/src//views/contacto.php">Contacto</a></li>
+                <?php if (!isset($_SESSION['usuario'])): ?>
+                    <li><a href="/src/views/contacto.php">Contacto</a></li>
+                <?php else: ?>
+                    <li><a href="/src/views/presupuesto.php">Presupuesto</a></li>
+                <?php endif; ?>
             </ul>
         </div>
 
         <div class="footer-col">
             <h4>Servicios</h4>
-            <ul>
+            <ul style="padding-left: 0;">
                 <?php if ($usuarioLogueado): ?>
                     <li><a href="/src/views/servicios.php#lijado-completo">Lijado Superficial + Pintado Entero</a></li>
                     <li><a href="/src/views/servicios.php#lijado-piezas">Lijado + Pintado por Piezas</a></li>
