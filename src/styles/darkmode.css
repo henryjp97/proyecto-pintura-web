@@ -72,3 +72,27 @@ body.dark-mode td {
 body.dark-mode .admin-subtitulo {
     color: #f1f5f9;
 }
+/* =========================
+   HOVER EN TABLA - MODO OSCURO
+========================= */
+
+body.dark-mode tr:hover td {
+    background: #2d3f55;
+    color: #ffffff;
+}
+
+body.dark-mode tr:hover {
+    background: #2d3f55;
+}
+
+/* Para que el texto dentro del hover también sea legible */
+body.dark-mode tr:hover td * {
+    color: #ffffff;
+}
+
+/* Email / subtexto dentro de la celda */
+body.dark-mode tr:hover td small,
+body.dark-mode tr:hover td span,
+body.dark-mode tr:hover td p {
+    color: #cbd5e1 !important;
+}
