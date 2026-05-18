@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 3. Enviar correo
-    try {
+    
         $foto_status = count($foto_nombres) > 0
             ? "✅ " . count($foto_nombres) . " foto(s) adjuntada(s)"
             : "❌ No adjuntada";
@@ -109,9 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>";
 
         enviarCorreo('finishlineheesni@gmail.com', '📋 Nueva solicitud de presupuesto — FinishLine', $cuerpoHtml);
-    } catch (Exception $e) {
-        error_log("Mailer error: " . $e->getMessage());
-    }
+    
 
     header("Location: /src/views/presupuesto.php?status=success");
 
