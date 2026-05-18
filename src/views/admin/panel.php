@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../../config/conexion.php';
-require_once __DIR__ . '/../../models/AdminModel.php';
+require_once __DIR__ . '/../../models/adminmodel.php';
 require_once __DIR__ . '/../../controllers/AdminController.php';
 
 /* ── 1. Autenticación ── */
