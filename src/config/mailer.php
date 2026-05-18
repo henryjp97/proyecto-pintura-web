@@ -10,12 +10,12 @@ function crearMailer(): PHPMailer {
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = getenv('MAIL_USER');// Crearos en .env MAIL_USER=Tu MAIL        MAIL_PASS=TU CONTRASEÑA (La que tienes que buscar en google(no la que usualmente usas))
-    $mail->Password   = getenv('MAIL_PASS');
+    $mail->Username   = 'finishlineheesni@gmail.com';// Crearos en .env MAIL_USER=Tu MAIL        MAIL_PASS=TU CONTRASEÑA (La que tienes que buscar en google(no la que usualmente usas))
+    $mail->Password   = 'hmgtzemohczkblko';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
-    $mail->setFrom(getenv('MAIL_USER'), 'FinishLine');
+    $mail->setFrom('finishlineheesni@gmail.com', 'FinishLine');
     $mail->CharSet = 'UTF-8';
 
     return $mail;

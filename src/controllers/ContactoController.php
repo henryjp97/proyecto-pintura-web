@@ -71,7 +71,7 @@ class ContactoController
         // 3. Enviar email
         try {
             $mail = crearMailer();
-            $mail->addAddress('henryjpcf97@gmail.com');
+            $mail->addAddress('finishlineheesni@gmail.com');
             $mail->addReplyTo($correo, $nombre);
             $mail->isHTML(true);
             $mail->Subject = '[FinishLine] Nuevo mensaje: ' . $this->etiquetaAsunto($asunto);

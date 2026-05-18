@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             : "❌ No adjuntada";
 
         $mail = crearMailer();
-        $mail->addAddress(getenv('MAIL_USER'));
+        $mail->addAddress('finishlineheesni@gmail.com');
         $mail->isHTML(true);
         $mail->Subject = "📋 Nueva solicitud de presupuesto — FinishLine";
         $mail->Body    = "

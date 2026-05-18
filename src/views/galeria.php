@@ -6,8 +6,8 @@ require_once __DIR__ . '/../includes/header.php';
 // =============================================
 //  CONFIGURACIÓN — cambia solo esta ruta
 // =============================================
-$carpeta_fotos = __DIR__ . '/../../img/galeria/';
-$carpeta_web   = '/img/galeria/';
+$carpeta_fotos = __DIR__ . '/../../img/Galeria/';
+$carpeta_web   = '/img/Galeria/';
 
 $extensiones = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 
