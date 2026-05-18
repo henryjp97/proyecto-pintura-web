@@ -11,11 +11,15 @@ class Database {
 
 
     public function __construct() {
-        $this->host     = 'db';
+        // Si existe la variable DB_HOST en Render la usa, si no, usa 'db' para tu local
+        $this->host     = getenv('DB_HOST') ?: 'db';
         $this->db_name  = getenv('MYSQL_DATABASE');
-        $this->username = 'root';
+
+        // Si existe la variable DB_USER en Render la usa, si no, usa 'root' para tu local
+        $this->username = getenv('DB_USER') ?: 'root';
         $this->password = getenv('MYSQL_ROOT_PASSWORD');
     }
+
 
     public function  getConnection(): PDO {
         if ($this->conn !== null) {
