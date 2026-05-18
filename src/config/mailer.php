@@ -12,8 +12,8 @@ function crearMailer(): PHPMailer {
     $mail->SMTPAuth   = true;
     $mail->Username   = 'finishlineheesni@gmail.com';// Crearos en .env MAIL_USER=Tu MAIL        MAIL_PASS=TU CONTRASEÑA (La que tienes que buscar en google(no la que usualmente usas))
     $mail->Password   = 'hmgtzemohczkblko';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port       = 465;
 
     $mail->setFrom('finishlineheesni@gmail.com', 'FinishLine');
     $mail->CharSet = 'UTF-8';
