@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../models/AdminModel.php';
+require_once __DIR__ . '/../models/adminmodel.php';
 
 class AdminController {
     public AdminModel $model;
