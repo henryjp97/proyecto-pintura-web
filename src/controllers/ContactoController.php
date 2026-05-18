@@ -69,20 +69,11 @@ class ContactoController
         }
 
         // 3. Enviar email
-        try {
-            $mail = crearMailer();
-            $mail->addAddress('finishlineheesni@gmail.com');
-            $mail->addReplyTo($correo, $nombre);
-            $mail->isHTML(true);
-            $mail->Subject = '[FinishLine] Nuevo mensaje: ' . $this->etiquetaAsunto($asunto);
-            $mail->Body    = $this->plantillaHTML($nombre, $correo, $asunto, $mensaje, $idSolicitud);
-            $mail->AltBody = "Nombre: $nombre\nCorreo: $correo\nAsunto: $asunto\nMensaje: $mensaje";
-            $mail->send();
+        $cuerpoHtml = $this->plantillaHTML($nombre, $correo, $asunto, $mensaje, $idSolicitud);
+        $enviado    = enviarCorreo('finishlineheesni@gmail.com', '[FinishLine] Nuevo mensaje: ' . $this->etiquetaAsunto($asunto), $cuerpoHtml);
 
-        } catch (Exception $e) {
-            error_log('Error PHPMailer: ' . $e->getMessage());
-            header('Location: /src/views/contacto.php?status=success');
-            exit;
+        if (!$enviado) {
+            error_log('Error al enviar correo de contacto para solicitud #' . $idSolicitud);
         }
 
         // 4. Todo OK
@@ -135,7 +126,7 @@ class ContactoController
 
     private function etiquetaAsunto(string $value): string
     {
-        return match($value) {
+        return match ($value) {
             'tecnico'     => 'Asesoría Técnica',
             'otros'       => 'Otros',
             default       => $value,

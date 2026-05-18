@@ -1,22 +1,26 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+function enviarCorreo(string $destinatario, string $asunto, string $cuerpoHtml): bool {
+    $apiKey = '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';
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+    $datos = [
+        'sender'     => ['name' => 'FinishLine', 'email' => 'finishlineheesni@gmail.com'],
+        'to'         => [['email' => $destinatario]],
+        'subject'    => $asunto,
+        'htmlContent'=> $cuerpoHtml
+    ];
 
-function crearMailer(): PHPMailer {
-    $mail = new PHPMailer(true);
+    $ch = curl_init('https://api.brevo.com/v3/smtp/email');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'api-key: ' . $apiKey
+    ]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
 
-    $mail->isSMTP();
-    $mail->Host       = 'smtp-relay.brevo.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'abb8d3001@smtp-brevo.com';
-    $mail->Password   = 'bskl3t2LkCeBpgp';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
+    $respuesta = curl_exec($ch);
+    $codigo    = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
 
-    $mail->setFrom('finishlineheesni@gmail.com', 'FinishLine');
-    $mail->CharSet = 'UTF-8';
-
-    return $mail;
+    return $codigo === 201;
 }

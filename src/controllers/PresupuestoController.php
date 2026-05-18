@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $listaServicios = $servicioModel->obtenerTodos();
     $servicio_id    = $_GET['servicio'] ?? '';
     $status         = $_GET['status']   ?? '';
-   return;
+    return;
 }
 
 // ─── POST: procesar formulario ─────────────────────────────────────────────
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_ticket   = $ticketModel->crear($id_usuario, $id_servicio, $modelo, $descripcion, $matricula);
 
     if ($id_ticket === 0) {
-       header("Location: /src/views/presupuesto.php?status=error");
+        header("Location: /src/views/presupuesto.php?status=error");
         exit();
     }
 
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['foto_vehiculo']) && is_array($_FILES['foto_vehiculo']['name'])) {
         $docModel   = new Documento($conn);
         $permitidos = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-        
+
         foreach ($_FILES['foto_vehiculo']['error'] as $i => $error) {
             if ($error !== UPLOAD_ERR_OK) continue;
 
@@ -79,6 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 3. Enviar correo
     try {
+        $foto_status = count($foto_nombres) > 0
+            ? "✅ " . count($foto_nombres) . " foto(s) adjuntada(s)"
+            : "❌ No adjuntada";
+
         $stmtSrv         = $conn->prepare("SELECT Nombre FROM Servicios WHERE id_servicio = ?");
         $stmtSrv->execute([$id_servicio]);
         $servicio_nombre = $stmtSrv->fetchColumn() ?: 'No especificado';
@@ -86,41 +90,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nombre_safe      = htmlspecialchars($_SESSION['usuario']['nombre']);
         $modelo_safe      = htmlspecialchars($modelo);
         $descripcion_safe = htmlspecialchars($descripcion);
-        $foto_status      = count($foto_nombres) > 0
-            ? "✅ " . count($foto_nombres) . " foto(s) adjuntada(s)"
-            : "❌ No adjuntada";
 
-        $mail = crearMailer();
-        $mail->addAddress('finishlineheesni@gmail.com');
-        $mail->isHTML(true);
-        $mail->Subject = "📋 Nueva solicitud de presupuesto — FinishLine";
-        $mail->Body    = "
-            <div style='font-family:Poppins,sans-serif;max-width:600px;margin:0 auto;
-                        border:1px solid #e2e8f0;border-radius:12px;overflow:hidden'>
-                <div style='background:#0A2540;padding:24px 32px'>
-                    <h2 style='color:#00D4FF;margin:0'>Nueva Solicitud de Presupuesto</h2>
-                </div>
-                <div style='padding:32px;background:#F7FAFC'>
-                    <table style='width:100%'>
-                        <tr><td>👤 Cliente:</td><td>{$nombre_safe}</td></tr>
-                        <tr><td>🔧 Servicio:</td><td>{$servicio_nombre}</td></tr>
-                        <tr><td>🚗 Vehículo:</td><td>{$modelo_safe}</td></tr>
-                        <tr><td>📝 Descripción:</td><td>{$descripcion_safe}</td></tr>
-                        <tr><td>📎 Foto:</td><td>{$foto_status}</td></tr>
-                    </table>
-                </div>
-            </div>";
+        $cuerpoHtml = "
+        <div style='font-family:Poppins,sans-serif;max-width:600px;margin:0 auto;
+                    border:1px solid #e2e8f0;border-radius:12px;overflow:hidden'>
+            <div style='background:#0A2540;padding:24px 32px'>
+                <h2 style='color:#00D4FF;margin:0'>Nueva Solicitud de Presupuesto</h2>
+            </div>
+            <div style='padding:32px;background:#F7FAFC'>
+                <table style='width:100%'>
+                    <tr><td>👤 Cliente:</td><td>{$nombre_safe}</td></tr>
+                    <tr><td>🔧 Servicio:</td><td>{$servicio_nombre}</td></tr>
+                    <tr><td>🚗 Vehículo:</td><td>{$modelo_safe}</td></tr>
+                    <tr><td>📝 Descripción:</td><td>{$descripcion_safe}</td></tr>
+                    <tr><td>📎 Foto:</td><td>{$foto_status}</td></tr>
+                </table>
+            </div>
+        </div>";
 
-                foreach ($rutas_imagenes as $ruta) {
-            $mail->addAttachment("/var/www/html" . $ruta);
-        }
-
-        $mail->send();
+        enviarCorreo('finishlineheesni@gmail.com', '📋 Nueva solicitud de presupuesto — FinishLine', $cuerpoHtml);
     } catch (Exception $e) {
         error_log("Mailer error: " . $e->getMessage());
     }
 
-     header("Location: /src/views/presupuesto.php?status=success");
+    header("Location: /src/views/presupuesto.php?status=success");
 
     exit();
 }
