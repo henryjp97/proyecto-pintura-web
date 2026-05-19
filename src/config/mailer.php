@@ -1,6 +1,6 @@
 <?php
 function enviarCorreo(string $destinatario, string $asunto, string $cuerpoHtml): bool {
-    $apiKey = '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';
+    $apiKey = $_ENV['BREVO_API_KEY'];
 
     $datos = [
         'sender'     => ['name' => 'FinishLine', 'email' => 'finishlineheesni@gmail.com'],
