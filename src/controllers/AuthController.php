@@ -1,6 +1,6 @@
 <?php
+
 require_once __DIR__ . '/../models/usuario.php';
-require_once __DIR__ . '/../config/conexion.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -9,13 +9,31 @@ if (session_status() === PHP_SESSION_NONE) {
 class AuthController {
     private $usuarioModel;
 
+    //constructor
     public function __construct($conn) {
         $this->usuarioModel = new Usuario($conn);
     }
 
-    // --- MÉTODO DE REGISTRO (Faltaba este en tu último mensaje) ---
-    public function registro($datos) {
-        if (empty($datos['nombre']) || empty($datos['apellido']) || 
+    //Iniciar sesion
+    public function login(string $correo, string $password): bool {
+        $usuario = $this->usuarioModel->login($correo, $password);
+
+        if ($usuario) {
+            $_SESSION['usuario'] = [
+                'id'     => $usuario['id_usuario'],
+                'nombre' => $usuario['Nombre'],
+                'correo' => $usuario['Correo'],
+                'rol'    => $usuario['Rol']
+            ];
+            return true;
+        }
+
+        return false;
+    }
+
+    //registrarse
+    public function registro(array $datos): array {
+        if (empty($datos['nombre']) || empty($datos['apellido']) ||
             empty($datos['correo']) || empty($datos['password'])) {
             return ['error' => 'Todos los campos son obligatorios'];
         }
@@ -27,49 +45,20 @@ class AuthController {
         $resultado = $this->usuarioModel->registrar(
             $datos['nombre'],
             $datos['apellido'],
-            $datos['telefono'] ?? '', // Evita error si no viene teléfono
+            $datos['telefono'] ?? '',
             $datos['correo'],
             $datos['password']
         );
 
-        if ($resultado) {
-            return ['success' => 'Usuario registrado correctamente'];
-        }
-        return ['error' => 'Error al registrar el usuario'];
+        return $resultado
+            ? ['success' => 'Usuario registrado correctamente']
+            : ['error'   => 'Error al registrar el usuario'];
     }
 
-    // --- MÉTODO DE LOGIN ---
-    public function login($correo, $password) {
-        $usuario = $this->usuarioModel->login($correo, $password);
-
-        if ($usuario) {
-            $_SESSION['usuario'] = [
-                'id' => $usuario['id_usuario'],
-                'nombre' => $usuario['Nombre'],
-                'correo' => $usuario['Correo'],
-                'rol' => $usuario['Rol']
-            ];
-            return true;
-        }
-        return false;
-    }
-
-    public function logout() {
+    //Cerrar sesion
+    public function logout(): void {
         session_destroy();
         header('Location: /index.php');
         exit();
     }
-}
-
-// --- LÓGICA DE PROCESAMIENTO PARA EL LOGIN DEL INDEX ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user']) && isset($_POST['pass'])) {
-    $controller = new AuthController($conn);
-    $exito = $controller->login($_POST['user'], $_POST['pass']);
-
-    if ($exito) {
-        header('Location: /index.php');
-    } else {
-        header('Location: /index.php?error=1');
-    }
-    exit();
 }

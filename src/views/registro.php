@@ -1,11 +1,13 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-// src/views/registro.php
 require_once __DIR__ . '/../config/conexion.php'; 
 require_once __DIR__ . '/../controllers/AuthController.php';
 
-// Verifica si $conn existe (la variable que creas en conexion.php)
+$database = new Database();
+$conn     = $database->getConnection();
+
 if (!isset($conn)) {
     die("Error: La conexión a la base de datos no está disponible.");
 }
@@ -13,11 +15,8 @@ if (!isset($conn)) {
 $mensaje = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Instanciamos el controlador
     $controller = new AuthController($conn); 
-    
-    // Ejecutamos el método registro pasándole los datos del formulario
-    $resultado = $controller->registro($_POST);
+    $resultado  = $controller->registro($_POST);
     
     if (isset($resultado['success'])) {
         header('Location: /index.php?registrado=1'); 
@@ -31,27 +30,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - FinishLine</title>
-    <link rel="stylesheet" href="/src/styles/Registro.css">
+    <link rel="stylesheet" href="/src/styles/login.css">
+    <style>
+        .password-hint {
+            font-size: 0.78rem;
+            color: #999;
+            text-align: left;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-    <div class="card">
-        <h2>Crear cuenta</h2>
+    <div class="login-container">
+        <h1>FinishLine</h1>
+        <p class="welcome-text">
+            Crea tu cuenta para acceder a todos nuestros servicios de chapa y pintura.
+        </p>
 
         <?php if ($mensaje): ?>
-            <p style="color:red; font-size: 14px;"><?php echo $mensaje; ?></p>
+            <div class="error-mensaje"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>
 
         <form method="POST" action="">
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="text" name="apellido" placeholder="Apellido" required>
-            <input type="text" name="telefono" placeholder="Teléfono">
-            <input type="email" name="correo" placeholder="Correo" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Registrarse</button>
+            <input type="text"     name="nombre"   placeholder="Nombre"             required>
+            <input type="text"     name="apellido" placeholder="Apellido"            required>
+            <input type="text"     name="telefono" placeholder="Teléfono (opcional)">
+            <input type="email"    name="correo"   placeholder="Correo electrónico"  required>
+            <input type="password" name="password" placeholder="Contraseña"          required>
+            <p class="password-hint">Mínimo 6 caracteres</p>
+            <button type="submit">Crear cuenta</button>
         </form>
-        <p style="font-size: 12px; margin-top: 15px;">
-            ¿Ya tienes cuenta? <a href="/index.php">Volver al inicio</a>
+
+        <p class="footer-link">
+            ¿Ya tienes cuenta? <a href="/src/views/login.php">Inicia sesión aquí</a>
+        </p>
+        <p class="footer-link">
+            <a href="/index.php">← Volver a la página principal</a>
         </p>
     </div>
 </body>
