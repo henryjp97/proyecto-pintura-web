@@ -26,7 +26,7 @@ CREATE TABLE `Autenticacion` (
   `id_autenticacion` int NOT NULL AUTO_INCREMENT,
   `password_hash` varchar(255) NOT NULL,
   PRIMARY KEY (`id_autenticacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `Autenticacion` (
 
 LOCK TABLES `Autenticacion` WRITE;
 /*!40000 ALTER TABLE `Autenticacion` DISABLE KEYS */;
-INSERT INTO `Autenticacion` VALUES (1,'$2y$10$5DFyRDE.6696z6vlum1e7O6g91tOullTcrqxQGTZ1va4Jtvn9qe12'),(2,'$2y$10$9z.se8UMs58HjmU0vPEUwu74enFXfqIc2KafcXRZ0rvXvitTO546u'),(3,'$2y$10$xA6uFNljJmafeK5HHnySZO4fw6sgs1VS.FUtI3jHttZ6FChN12ZHm'),(4,'$2y$10$5DFyRDE.6696z6vlum1e7O6g91tOullTcrqxQGTZ1va4Jtvn9qe12'),(5,'$2y$10$ZnRePg33ZPd8748kUxmereTrVhVVfX3XOOxYXli7pfc8v6azrgqbu'),(7,'$2y$10$Vdiglsek4pr0yMP8tUE9eOx.Ks8.1A3RiEwvnFWsDuXUcXJ4kZpha');
+INSERT INTO `Autenticacion` VALUES (1,'$2y$10$5DFyRDE.6696z6vlum1e7O6g91tOullTcrqxQGTZ1va4Jtvn9qe12'),(2,'$2y$10$9z.se8UMs58HjmU0vPEUwu74enFXfqIc2KafcXRZ0rvXvitTO546u'),(3,'$2y$10$xA6uFNljJmafeK5HHnySZO4fw6sgs1VS.FUtI3jHttZ6FChN12ZHm'),(4,'$2y$10$5DFyRDE.6696z6vlum1e7O6g91tOullTcrqxQGTZ1va4Jtvn9qe12'),(5,'$2y$10$S.qmRmxJQg8N2DU.v0TVoe..Hg/v1NaeHXVQ3A96pJhdkr7zN1Qtu'),(7,'$2y$10$Vdiglsek4pr0yMP8tUE9eOx.Ks8.1A3RiEwvnFWsDuXUcXJ4kZpha'),(8,'$2y$10$FUEfRRhke5kw4528QPUQE.XQbnGt5YkSHdh7YgbMFbZBSX7LH07xa');
 /*!40000 ALTER TABLE `Autenticacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +57,7 @@ CREATE TABLE `Nota_X_Ticket` (
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `Nota_X_Ticket_ibfk_1` FOREIGN KEY (`id_ticket`) REFERENCES `Ticket` (`id_ticket`) ON DELETE CASCADE,
   CONSTRAINT `Nota_X_Ticket_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `Usuario` (`id_usuario`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,6 @@ CREATE TABLE `Nota_X_Ticket` (
 
 LOCK TABLES `Nota_X_Ticket` WRITE;
 /*!40000 ALTER TABLE `Nota_X_Ticket` DISABLE KEYS */;
-INSERT INTO `Nota_X_Ticket` VALUES (1,39,1,'esta lijado','2026-05-12 22:06:28'),(2,47,1,'Esta en preparacion','2026-05-12 22:15:41'),(3,47,1,'esta emprimado','2026-05-12 22:21:17'),(4,47,1,'Esta Pintado','2026-05-12 22:21:26'),(5,47,1,'Esta secado','2026-05-12 22:21:32');
 /*!40000 ALTER TABLE `Nota_X_Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +84,7 @@ CREATE TABLE `Respuesta_x_solicitud` (
   PRIMARY KEY (`id_respuesta`),
   UNIQUE KEY `uq_solicitud` (`id_solicitud`),
   CONSTRAINT `fk_rxs_solicitud` FOREIGN KEY (`id_solicitud`) REFERENCES `Solicitudes` (`id_solicitud`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +93,6 @@ CREATE TABLE `Respuesta_x_solicitud` (
 
 LOCK TABLES `Respuesta_x_solicitud` WRITE;
 /*!40000 ALTER TABLE `Respuesta_x_solicitud` DISABLE KEYS */;
-INSERT INTO `Respuesta_x_solicitud` VALUES (1,1,'fffffffffff','2026-05-15 17:25:10'),(5,14,'dddddd','2026-05-16 10:45:34'),(7,13,'tonto','2026-05-16 10:59:27'),(8,12,'123','2026-05-16 11:06:36'),(9,15,'yo te ayudo','2026-05-16 12:21:14'),(10,16,'215825','2026-05-16 13:18:51');
 /*!40000 ALTER TABLE `Respuesta_x_solicitud` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +120,6 @@ CREATE TABLE `Respuesta_x_ticket` (
 
 LOCK TABLES `Respuesta_x_ticket` WRITE;
 /*!40000 ALTER TABLE `Respuesta_x_ticket` DISABLE KEYS */;
-INSERT INTO `Respuesta_x_ticket` VALUES (1,47,'123 probando','2026-05-15 16:38:13'),(2,47,'Hola que tal , sigues ahi?','2026-05-15 16:39:02'),(3,47,'Una pregunta','2026-05-16 07:56:05'),(4,47,'Ya te pregunte','2026-05-16 07:56:21'),(5,47,'ya esata?','2026-05-16 09:59:49'),(6,48,'rrr','2026-05-16 12:49:18');
 /*!40000 ALTER TABLE `Respuesta_x_ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +166,7 @@ CREATE TABLE `Solicitudes` (
   `fecha_envio` datetime DEFAULT CURRENT_TIMESTAMP,
   `estado` enum('pendiente','en_proceso','respondida') DEFAULT 'pendiente',
   PRIMARY KEY (`id_solicitud`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +175,6 @@ CREATE TABLE `Solicitudes` (
 
 LOCK TABLES `Solicitudes` WRITE;
 /*!40000 ALTER TABLE `Solicitudes` DISABLE KEYS */;
-INSERT INTO `Solicitudes` VALUES (1,'henry','henrycf97@gmail.com','tecnico','vhrtrthtrhtrhrt','2026-05-05 13:49:57','pendiente'),(2,'henry','henrycf97@gmail.com','tecnico','vhrtrthtrhtrhrtbfgb','2026-05-05 13:50:43','pendiente'),(3,'henry','e@gf.com','tecnico','fffffffffffffffff','2026-05-05 13:53:14','pendiente'),(4,'loco','e@gf.com','tecnico','fffffffffffffffff','2026-05-05 13:56:21','pendiente'),(5,'henry','e@gf.com','tecnico','hhhhhhhhhhh','2026-05-05 14:08:54','pendiente'),(6,'fefe','henrycf97@gmail.com','tecnico','ffffffffffffff','2026-05-05 14:09:13','pendiente'),(7,'topo','topo@gm.conm','tecnico','topotafdefefe','2026-05-05 14:13:37','pendiente'),(8,'topo','topo@gm.conm','tecnico','veevev9o90p0','2026-05-06 18:28:05','pendiente'),(9,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:27','pendiente'),(10,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:47','pendiente'),(11,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:16:56','pendiente'),(12,'fefe','topo@gm.conm','tecnico','fefefefefefefef','2026-05-08 14:17:02','respondida'),(13,'fefe','henrycf97@gmail.com','tecnico','12fefefefefe','2026-05-08 19:50:10','respondida'),(14,'henry','henrycf97@gmail.com','tecnico','ddddddddddddddddddddddd','2026-05-12 21:36:04','pendiente'),(15,'henry','henrycf97@gmail.com','tecnico','hola ayudame por favor','2026-05-16 12:14:32','respondida'),(16,'1332','123@fe.com','tecnico','2132123123213231','2026-05-16 12:30:56','respondida');
 /*!40000 ALTER TABLE `Solicitudes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +216,6 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (1,1,4,'fefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(2,1,5,'fefefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'ferfefe',NULL,NULL),(3,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(4,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(5,1,5,'dwdw',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(6,1,4,'ewfwe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'123',NULL,NULL),(7,1,5,'fefefefefe',NULL,'2026-05-01',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(8,1,5,'fefefefefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(9,1,4,'fefefefefefefefefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(10,1,6,'fefef',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(11,1,6,'dwdw',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(12,1,5,'fefe',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'fefeffefef',NULL,NULL),(13,1,4,'fefef',NULL,'2026-05-02',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(14,1,4,'dede',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'focus',NULL,NULL),(15,1,6,'fefe',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'topo',NULL,NULL),(16,1,5,'+6+3',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(17,1,6,'dede',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'rggreg',NULL,NULL),(18,1,5,'dwdwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(19,1,4,'fefef',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'fefe',NULL,NULL),(20,1,4,'dwdw',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdwdw',NULL,NULL),(21,1,4,'fefe',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'defe',NULL,NULL),(22,1,4,'dwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(23,1,5,'fef',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'fef',NULL,NULL),(24,1,5,'dwd',NULL,'2026-05-03',NULL,NULL,'pendiente',NULL,'dwdw',NULL,NULL),(25,1,4,'Una aleta mal','1581FLT','2026-05-04',NULL,NULL,'pendiente',NULL,'ford focus',NULL,NULL),(26,1,5,'1221','21212','2026-05-04',NULL,NULL,'pendiente',NULL,'ford focus',NULL,NULL),(27,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(28,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(29,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(30,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(31,1,4,'egege','gegege','2026-05-04',NULL,NULL,'pendiente',NULL,'fgfegeg',NULL,NULL),(32,1,5,'vdvdv','vdvdv','2026-05-04',NULL,NULL,'pendiente',NULL,'sdvdvd',NULL,NULL),(33,1,4,'ddd','ddd','2026-05-04',NULL,NULL,'pendiente',NULL,'dd',NULL,NULL),(34,1,5,'vdvd','vdvdvdvdv','2026-05-04',NULL,NULL,'pendiente',NULL,'ddv',NULL,NULL),(35,1,4,'561564','68955648','2026-05-04',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(36,1,4,'561564','68955648','2026-05-04',NULL,NULL,'pendiente',NULL,'dwd',NULL,NULL),(37,1,6,'dsadsa','dsad','2026-05-04',NULL,NULL,'pendiente',NULL,'dd',NULL,NULL),(38,1,4,'fefef','effef','2026-05-04',NULL,NULL,'pendiente',NULL,'ffff',NULL,NULL),(39,1,4,'fefefe','fefefe','2026-05-05',NULL,123123.00,'en proceso',NULL,'fefe',1,'12312312'),(40,1,4,'fefe','fefe','2026-05-05',NULL,NULL,'pendiente',NULL,'eeee',NULL,NULL),(41,1,4,'rgrg','grgr','2026-05-05',NULL,232.00,'cancelado',NULL,'ggrg',4,'Hola , después de analizar las fotos y los daños a reparar se valora toda la mano de obra .'),(42,1,4,'Paragolpes por pintar','1581FLT','2026-05-05',NULL,324234.00,'en proceso',NULL,'ford focus',4,'efe'),(45,2,4,'Prueba desde Postman','1234ABC','2026-05-09',NULL,34.00,'en proceso',NULL,'bmw Serie3',4,'grgr'),(47,5,4,'dddd','ddddddd','2026-05-12',NULL,3434.00,'pendiente',NULL,'dddd',1,'ya esata?'),(48,3,4,'fff','ffff','2026-05-16',NULL,44.00,'en proceso',NULL,'ffff',5,'rrr');
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,7 +237,7 @@ CREATE TABLE `Usuario` (
   PRIMARY KEY (`id_usuario`),
   KEY `id_autenticacion` (`id_autenticacion`),
   CONSTRAINT `Usuario_ibfk_1` FOREIGN KEY (`id_autenticacion`) REFERENCES `Autenticacion` (`id_autenticacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +246,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,1,'Henry','Cantoral','12345678','henry@test.com','cliente'),(2,2,'Pope','cito','12358','pope@e.com','empleado'),(3,3,'proyecto','daw','12','pro@e.daw','cliente'),(4,4,'Admin','Principal','652955253','finishlineheesni@gmail.com','admin'),(5,5,'Henry','Cantoral','652955253','henrycf97@gmail.com','empleado'),(7,7,'Jean','Cantoral','6142','1@f.com','empleado');
+INSERT INTO `Usuario` VALUES (1,1,'Henry','Cantoral','12345678','henry@test.com','cliente'),(2,2,'Pope','cito','12358','pope@e.com','empleado'),(3,3,'proyecto','daw','12','pro@e.daw','cliente'),(4,4,'Admin','Principal','652955253','finishlineheesni@gmail.com','admin'),(5,5,'Henry','Cantoral','652955253','henrycf97@gmail.com','empleado'),(7,7,'Jean','Cantoral','6142','1@f.com','empleado'),(8,8,'Pepe','Pepe1','675757383','pepe@pe.com','empleado');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +273,6 @@ CREATE TABLE `documento_x_tickets` (
 
 LOCK TABLES `documento_x_tickets` WRITE;
 /*!40000 ALTER TABLE `documento_x_tickets` DISABLE KEYS */;
-INSERT INTO `documento_x_tickets` VALUES (13,15),(14,15),(15,16),(16,16),(17,17),(18,17),(19,18),(20,19),(21,19),(22,20),(23,20),(24,21),(25,21),(26,21),(27,22),(28,23),(29,24),(30,25),(31,25),(32,26),(33,27),(34,28),(35,29),(36,30),(37,31),(38,32),(39,33),(40,34),(41,36),(42,36),(43,36),(44,37),(45,37),(46,37),(47,37),(48,38),(49,39),(50,40),(51,41),(52,42);
 /*!40000 ALTER TABLE `documento_x_tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,7 +299,6 @@ CREATE TABLE `documentos` (
 
 LOCK TABLES `documentos` WRITE;
 /*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
-INSERT INTO `documentos` VALUES (13,'Proceso.jpg','image/jpeg','/uploads/tickets/15/foto_69f77e74dbd7c.jpg','2026-05-03 16:57:24'),(14,'Pulido1.jpeg','image/jpeg','/uploads/tickets/15/foto_69f77e74e77a6.jpeg','2026-05-03 16:57:24'),(15,'Pulido1.jpeg','image/jpeg','/uploads/tickets/16/foto_69f7815a4168f.jpeg','2026-05-03 17:09:46'),(16,'Pulido2.jpeg','image/jpeg','/uploads/tickets/16/foto_69f7815a48f6f.jpeg','2026-05-03 17:09:46'),(17,'Pulido1.jpeg','image/jpeg','/uploads/tickets/17/foto_69f785111fe4b.jpeg','2026-05-03 17:25:37'),(18,'Pulido2.jpeg','image/jpeg','/uploads/tickets/17/foto_69f78511236ca.jpeg','2026-05-03 17:25:37'),(19,'Pulido2.jpeg','image/jpeg','/uploads/tickets/18/foto_69f7855e0fa41.jpeg','2026-05-03 17:26:54'),(20,'Pulido1.jpeg','image/jpeg','/uploads/tickets/19/foto_69f785a8cba02.jpeg','2026-05-03 17:28:08'),(21,'Pulido2.jpeg','image/jpeg','/uploads/tickets/19/foto_69f785a8d0b69.jpeg','2026-05-03 17:28:08'),(22,'Pulido1.jpeg','image/jpeg','/uploads/tickets/20/foto_69f785eb7790e.jpeg','2026-05-03 17:29:15'),(23,'Pulido2.jpeg','image/jpeg','/uploads/tickets/20/foto_69f785eb7e622.jpeg','2026-05-03 17:29:15'),(24,'Lijado.jpg','image/jpeg','/uploads/tickets/21/foto_69f785fda4a36.jpg','2026-05-03 17:29:33'),(25,'Proceso.jpg','image/jpeg','/uploads/tickets/21/foto_69f785fdb05f5.jpg','2026-05-03 17:29:33'),(26,'Pulido1.jpeg','image/jpeg','/uploads/tickets/21/foto_69f785fdb9fc9.jpeg','2026-05-03 17:29:33'),(27,'Pulido2.jpeg','image/jpeg','/uploads/tickets/22/foto_69f786778af1c.jpeg','2026-05-03 17:31:35'),(28,'Pulido2.jpeg','image/jpeg','/uploads/tickets/23/foto_69f786d71106d.jpeg','2026-05-03 17:33:11'),(29,'Proceso.jpg','image/jpeg','/uploads/tickets/24/foto_69f78705421b4.jpg','2026-05-03 17:33:57'),(30,'Proceso.jpg','image/jpeg','/uploads/tickets/25/foto_69f887b5dbe4e.jpg','2026-05-04 11:49:09'),(31,'Pulido1.jpeg','image/jpeg','/uploads/tickets/25/foto_69f887b5ecc07.jpeg','2026-05-04 11:49:09'),(32,'Lijado.jpg','image/jpeg','/uploads/tickets/26/foto_69f8b5733ec62.jpg','2026-05-04 15:04:19'),(33,'Pintor.jpeg','image/jpeg','/uploads/tickets/27/foto_69f8b8df24f17.jpeg','2026-05-04 15:18:55'),(34,'Pintor.jpeg','image/jpeg','/uploads/tickets/28/foto_69f8b937e2c2a.jpeg','2026-05-04 15:20:23'),(35,'Pintor.jpeg','image/jpeg','/uploads/tickets/29/foto_69f8b96121617.jpeg','2026-05-04 15:21:05'),(36,'Pintor.jpeg','image/jpeg','/uploads/tickets/30/foto_69f8b971a718b.jpeg','2026-05-04 15:21:21'),(37,'Pintor.jpeg','image/jpeg','/uploads/tickets/31/foto_69f8b9c149282.jpeg','2026-05-04 15:22:41'),(38,'Cabina_Pintura.jpg','image/jpeg','/uploads/tickets/32/foto_69f8b9e725059.jpg','2026-05-04 15:23:19'),(39,'Cabina_Pintura.jpg','image/jpeg','/uploads/tickets/33/foto_69f8ba2b45826.jpg','2026-05-04 15:24:27'),(40,'Lijado.jpg','image/jpeg','/uploads/tickets/34/foto_69f8bb2f061c8.jpg','2026-05-04 15:28:47'),(41,'Pintor.jpeg','image/jpeg','/uploads/tickets/36/foto_69f8c05102e2f.jpeg','2026-05-04 15:50:41'),(42,'Preparacion.jpg','image/jpeg','/uploads/tickets/36/foto_69f8c0510cb45.jpg','2026-05-04 15:50:41'),(43,'Proceso.jpg','image/jpeg','/uploads/tickets/36/foto_69f8c051127b9.jpg','2026-05-04 15:50:41'),(44,'Pintor.jpeg','image/jpeg','/uploads/tickets/37/foto_69f8c0a5e1288.jpeg','2026-05-04 15:52:05'),(45,'Preparacion.jpg','image/jpeg','/uploads/tickets/37/foto_69f8c0a5e68c9.jpg','2026-05-04 15:52:05'),(46,'Proceso.jpg','image/jpeg','/uploads/tickets/37/foto_69f8c0a5eaa1e.jpg','2026-05-04 15:52:05'),(47,'Pulido1.jpeg','image/jpeg','/uploads/tickets/37/foto_69f8c0a6003f2.jpeg','2026-05-04 15:52:06'),(48,'Cabina_Pintura.jpg','image/jpeg','/uploads/tickets/38/foto_69f90e2042dbb.jpg','2026-05-04 21:22:40'),(49,'Cabina_Pintura.jpg','image/jpeg','/uploads/tickets/39/foto_69f9a1a0d7798.jpg','2026-05-05 07:52:00'),(50,'Pintor.jpeg','image/jpeg','/uploads/tickets/40/foto_69f9a279bc12b.jpeg','2026-05-05 07:55:37'),(51,'Lijado.jpg','image/jpeg','/uploads/tickets/41/foto_69f9a5c46cac9.jpg','2026-05-05 08:09:40'),(52,'Proceso.jpg','image/jpeg','/uploads/tickets/42/foto_69fa5cf9e3bb4.jpg','2026-05-05 21:11:24'),(53,'Cabina_Pintura.jpg','image/jpeg','/uploads/tickets/46/foto_6a039dcfa0370.jpg','2026-05-12 21:38:23'),(54,'Lijado.jpg','image/jpeg','/uploads/tickets/46/foto_6a039dcfaab72.jpg','2026-05-12 21:38:23');
 /*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,7 +319,7 @@ CREATE TABLE `password_reset` (
   UNIQUE KEY `token` (`token`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `password_reset_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `Usuario` (`id_usuario`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,4 +344,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-16 13:33:10
+-- Dump completed on 2026-05-22 14:08:21
