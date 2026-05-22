@@ -64,18 +64,18 @@ $usuarioLogueado = isset($_SESSION['usuario']);
     <section id="servicios" class="services-wrapper">
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-image"><img src="img/imagen1.jpg" alt="Coche Gris"></div>
+                <div class="service-image"><img src="img/Finalizado.jpeg" alt="Coche Gris"></div>
                 <div class="service-content">
-                    <h3>RELLENAR</h3>
-                    <p>Pintura industrial de la más alta calidad.</p>
+                    <h3>Rapidez y eficiencia</h3>
+                    <p>Optimización de tiempos de entrega sin comprometer el resultado.</p>
                 </div>
             </div>
             
             <div class="service-card">
-                <div class="service-image"><img src="img/imagen2.jpg" alt="Coche Rojo"></div>
+                <div class="service-image"><img src="img/PiezaPreparada.png" alt="Coche Rojo"></div>
                 <div class="service-content">
-                    <h3>RELLENAR</h3>
-                    <p>Calidad certificada y garantizada en cada acabado.</p>
+                    <h3>Preparación</h3>
+                    <p>Cuidado meticuloso en la superficie para un anclaje y brillo perfectos.</p>
                 </div>
             </div>
             
