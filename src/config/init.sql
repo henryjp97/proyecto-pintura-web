@@ -105,6 +105,3 @@ CREATE TABLE IF NOT EXISTS password_reset (
     creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario) ON DELETE CASCADE
     );
-CREATE user admin IDENTIFIED BY "admin";
-
-GRANT ALL ON finishline_db.* to admin;
