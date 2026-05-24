@@ -1,6 +1,10 @@
 <?php
 function enviarCorreo(string $destinatario, string $asunto, string $cuerpoHtml): bool {
-    $apiKey = $_ENV['BREVO_API_KEY'];
+    $apiKey = getenv('BREVO_API_KEY') ?: ($_ENV['BREVO_API_KEY'] ?? null);
+    if (empty($apiKey)) {
+        error_log('Brevo SMTP: API key missing');
+        return false;
+    }
 
     $datos = [
         'sender'     => ['name' => 'FinishLine', 'email' => 'finishlineheesni@gmail.com'],
