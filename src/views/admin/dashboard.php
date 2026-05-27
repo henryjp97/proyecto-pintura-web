@@ -1,16 +1,5 @@
-<<<<<<< HEAD
-<?php
-/**
- * Variables inyectadas desde panel.php
- * @var array $stats
- * @var array $tickets
- * @var array $colores_estado
- */
-?>
-=======
 <?php /** @var array $stats @var array $tickets @var array $colores_estado */ ?>
 
->>>>>>> imagenes
 
 <section class="tab-content activo" id="tab-dashboard">
     <h1 class="admin-titulo">Dashboard</h1>

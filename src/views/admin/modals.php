@@ -12,21 +12,12 @@
  * Variables esperadas:
  * @var array $empleados   [['id_usuario'=>..., 'Nombre'=>..., 'Apellido'=>...], ...]
  * @var array $respuestasPorSolicitud
-<<<<<<< HEAD
- */
-?>
-=======
  */ ?>
->>>>>>> imagenes
 
 <!-- Backdrop -->
 <div class="modal-backdrop" id="modalResponderBackdrop" onclick="cerrarModalResponder()"></div>
 <div class="modal-backdrop" id="modalRespuestasBackdrop" onclick="cerrarModalRespuestas()"></div>
 <div class="modal-backdrop" id="modalVerNotasBackdrop" onclick="cerrarModalVerNotas()"></div>
-<<<<<<< HEAD
-
-
-=======
 <div class="modal-backdrop" id="modalImagenesBackdrop" onclick="cerrarModalImagenes()"></div>
 
 
@@ -58,7 +49,6 @@
     </div>
 </div>
 
->>>>>>> imagenes
 <!-- Modal Respuestas -->
 <div class="modal" id="modalRespuestas">
     <div class="modal-header">
@@ -248,8 +238,6 @@
         document.getElementById('modalResponderSolicitudBackdrop').classList.add('activo');
     }
 
-<<<<<<< HEAD
-=======
     function abrirModalImagenes(btn) {
         const docs     = JSON.parse(btn.getAttribute('data-docs') || '[]');
         const idTicket = btn.getAttribute('data-ticket');
@@ -293,7 +281,6 @@
         document.getElementById('lightboxImg').src = '';
     }
 
->>>>>>> imagenes
     function cerrarModalResponderSolicitud() {
         document.getElementById('modalResponderSolicitud').classList.remove('activo');
         document.getElementById('modalResponderSolicitudBackdrop').classList.remove('activo');
@@ -413,8 +400,6 @@
 
     /* Clase utilitaria */
     .w-full { width: 100%; }
-<<<<<<< HEAD
-=======
 
     /* Modal imágenes — más ancho para la galería */
     .modal-imagenes {
@@ -472,5 +457,4 @@
         font-size: .8rem;
     }
     .imagen-error::before { content: '⚠ No disponible'; }
->>>>>>> imagenes
 </style>

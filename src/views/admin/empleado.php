@@ -7,12 +7,7 @@
  * @var array  $tickets            Tickets asignados al empleado
  * @var array  $notasPorTicket     [id_ticket => array de notas]
  * @var array  $colores_estado
-<<<<<<< HEAD
- */
-?>
-=======
  */ ?>
->>>>>>> imagenes
 <section class="tab-content activo" id="tab-empleado">
     <h1 class="admin-titulo">Mis tickets asignados</h1>
 
