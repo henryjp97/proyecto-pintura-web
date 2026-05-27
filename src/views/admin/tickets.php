@@ -1,5 +1,4 @@
-<?php /** @var array $tickets @var array $colores_estado @var array $notasPorTicket @var array $respuestasPorTicket */
-?>
+<?php /** @var array $tickets @var array $colores_estado @var array $notasPorTicket @var array $respuestasPorTicket @var array $documentosPorTicket */ ?>
 
 <section class="tab-content" id="tab-tickets">
     <h1 class="admin-titulo">Gestión de Tickets</h1>
@@ -24,6 +23,7 @@
                 <th>Cambiar estado</th>
                 <th>Notas</th>
                 <th>Acciones</th>
+                <th>Imagen</th>
                 <th>Respuesta</th>
             </tr>
             </thead>
@@ -33,7 +33,9 @@
                 // Ahora usas los arrays ya preparados por el controlador
                 $notas      = $notasPorTicket[$t['id_ticket']]      ?? [];
                 $respuestas = $respuestasPorTicket[$t['id_ticket']] ?? [];
+                $documentos = $documentosPorTicket[$t['id_ticket']] ?? [];
                 ?>
+                
                 <tr>
                     <td>#<?= (int)$t['id_ticket'] ?></td>
                     <td>
@@ -99,6 +101,20 @@
                                         )">
                             ✉️ Responder
                         </button>
+                    </td>
+
+                    <td>
+                        <?php if (!empty($documentos)): ?>
+                            <?php $docsJson = htmlspecialchars(json_encode($documentos), ENT_QUOTES, 'UTF-8') ?>
+                            <button class="btn-sm btn-gris"
+                                    data-docs="<?= $docsJson ?>"
+                                    data-ticket="<?= (int)$t['id_ticket'] ?>"
+                                    onclick="abrirModalImagenes(this)">
+                                👁 Ver (<?= count($documentos) ?>)
+                            </button>
+                        <?php else: ?>
+                            <span style="color:#9ca3af;font-size:.8rem;">Sin imágenes</span>
+                        <?php endif; ?>
                     </td>
 
                     <td>

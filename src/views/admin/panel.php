@@ -67,6 +67,7 @@ $colores_rol = [
 $notasPorTicket         = [];
 $respuestasPorTicket    = [];
 $respuestasPorSolicitud = [];
+$documentosPorTicket    = [];
 
 if ($esAdmin) {
     $stats       = $admin->model->getStats();
@@ -77,8 +78,9 @@ if ($esAdmin) {
 
     foreach ($tickets as $t) {
         $id = $t['id_ticket'];
-        $notasPorTicket[$id]      = $admin->model->getNotasTicket($id);
-        $respuestasPorTicket[$id] = $admin->model->getRespuestasTicket($id);
+        $notasPorTicket[$id]       = $admin->model->getNotasTicket($id);
+        $respuestasPorTicket[$id]  = $admin->model->getRespuestasTicket($id);
+        $documentosPorTicket[$id]  = $admin->model->getDocumentosTicket($id);
     }
 
     foreach ($solicitudes as $s) {
@@ -94,6 +96,7 @@ if ($esAdmin) {
         $id = $t['id_ticket'];
         $notasPorTicket[$id]      = $admin->model->getNotasTicket($id);
         $respuestasPorTicket[$id] = $admin->model->getRespuestasTicket($id);
+        $documentosPorTicket[$id] = $admin->model->getDocumentosTicket($id);
     }
 }
 

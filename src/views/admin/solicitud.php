@@ -3,8 +3,7 @@
  * solicitud.php
  * @var array $solicitudes
  * @var array $respuestasPorSolicitud
- */
-?>
+ */ ?>
 
 <section class="tab-content" id="tab-solicitud">
     <h1 class="admin-titulo">Solicitudes de Contacto</h1>

@@ -12,14 +12,42 @@
  * Variables esperadas:
  * @var array $empleados   [['id_usuario'=>..., 'Nombre'=>..., 'Apellido'=>...], ...]
  * @var array $respuestasPorSolicitud
- */
-?>
+ */ ?>
 
 <!-- Backdrop -->
 <div class="modal-backdrop" id="modalResponderBackdrop" onclick="cerrarModalResponder()"></div>
 <div class="modal-backdrop" id="modalRespuestasBackdrop" onclick="cerrarModalRespuestas()"></div>
 <div class="modal-backdrop" id="modalVerNotasBackdrop" onclick="cerrarModalVerNotas()"></div>
+<div class="modal-backdrop" id="modalImagenesBackdrop" onclick="cerrarModalImagenes()"></div>
 
+
+<!-- Modal Imágenes del Ticket -->
+<div class="modal modal-imagenes" id="modalImagenes">
+    <div class="modal-header">
+        <h3 id="modalImagenesTitulo">🖼 Imágenes del Ticket</h3>
+        <button onclick="cerrarModalImagenes()" class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div id="modalImagenesContenido" class="imagenes-grid"></div>
+        <div class="modal-footer-btns" style="margin-top:1rem">
+            <button onclick="cerrarModalImagenes()" class="btn-sm btn-gris">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox para imagen ampliada -->
+<div class="modal-backdrop" id="lightboxBackdrop" onclick="cerrarLightbox()" style="z-index:1100"></div>
+<div id="lightbox" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+     z-index:1200;max-width:92vw;max-height:92vh;text-align:center">
+    <img id="lightboxImg" src="" alt="Imagen ampliada"
+         style="max-width:100%;max-height:88vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.6)">
+    <div style="margin-top:.5rem">
+        <a id="lightboxDescarga" href="" download class="btn-sm btn-azul" style="text-decoration:none">
+            ⬇ Descargar
+        </a>
+        <button onclick="cerrarLightbox()" class="btn-sm btn-gris" style="margin-left:.4rem">Cerrar</button>
+    </div>
+</div>
 
 <!-- Modal Respuestas -->
 <div class="modal" id="modalRespuestas">
@@ -210,6 +238,49 @@
         document.getElementById('modalResponderSolicitudBackdrop').classList.add('activo');
     }
 
+    function abrirModalImagenes(btn) {
+        const docs     = JSON.parse(btn.getAttribute('data-docs') || '[]');
+        const idTicket = btn.getAttribute('data-ticket');
+        const contenido = document.getElementById('modalImagenesContenido');
+
+        document.getElementById('modalImagenesTitulo').textContent = `🖼 Imágenes del Ticket #${idTicket}`;
+
+        if (docs.length === 0) {
+            contenido.innerHTML = '<p style="color:#9ca3af">Sin imágenes adjuntas.</p>';
+        } else {
+            contenido.innerHTML = docs.map(d => `
+                <div class="imagen-card" onclick="abrirLightbox('${escHtml(d.ruta)}', '${escHtml(d.nombre)}')">
+                    <img src="${escHtml(d.ruta)}" alt="${escHtml(d.nombre)}"
+                         onerror="this.parentElement.classList.add('imagen-error');this.style.display='none'">
+                    <span class="imagen-nombre">${escHtml(d.nombre)}</span>
+                    <span class="imagen-zoom">🔍 Ver</span>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('modalImagenes').classList.add('activo');
+        document.getElementById('modalImagenesBackdrop').classList.add('activo');
+    }
+
+    function cerrarModalImagenes() {
+        document.getElementById('modalImagenes').classList.remove('activo');
+        document.getElementById('modalImagenesBackdrop').classList.remove('activo');
+    }
+
+    function abrirLightbox(ruta, nombre) {
+        document.getElementById('lightboxImg').src         = ruta;
+        document.getElementById('lightboxDescarga').href   = ruta;
+        document.getElementById('lightboxDescarga').download = nombre;
+        document.getElementById('lightbox').style.display  = 'block';
+        document.getElementById('lightboxBackdrop').classList.add('activo');
+    }
+
+    function cerrarLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+        document.getElementById('lightboxBackdrop').classList.remove('activo');
+        document.getElementById('lightboxImg').src = '';
+    }
+
     function cerrarModalResponderSolicitud() {
         document.getElementById('modalResponderSolicitud').classList.remove('activo');
         document.getElementById('modalResponderSolicitudBackdrop').classList.remove('activo');
@@ -329,4 +400,61 @@
 
     /* Clase utilitaria */
     .w-full { width: 100%; }
+
+    /* Modal imágenes — más ancho para la galería */
+    .modal-imagenes {
+        width: min(720px, 96vw);
+    }
+
+    /* Grid de imágenes */
+    .imagenes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 12px;
+    }
+
+    .imagen-card {
+        position: relative;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        background: #f9fafb;
+        transition: transform .15s, box-shadow .15s;
+    }
+    .imagen-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    }
+    .imagen-card img {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        display: block;
+    }
+    .imagen-nombre {
+        display: block;
+        font-size: .72rem;
+        color: #6b7280;
+        padding: 4px 6px 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .imagen-zoom {
+        display: block;
+        font-size: .75rem;
+        color: #3b82f6;
+        padding: 0 6px 6px;
+        font-weight: 600;
+    }
+    .imagen-error {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 130px;
+        color: #9ca3af;
+        font-size: .8rem;
+    }
+    .imagen-error::before { content: '⚠ No disponible'; }
 </style>
