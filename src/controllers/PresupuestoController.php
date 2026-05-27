@@ -8,7 +8,7 @@ require_once __DIR__ . '/../config/mailer.php';
 
 use PHPMailer\PHPMailer\Exception;
 
-// Protección: debe estar logueado
+// Redirige si no esta logeado
 if (!isset($_SESSION['usuario'])) {
     header("Location: /src/views/login.php");
     exit();

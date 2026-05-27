@@ -5,8 +5,12 @@
  * @var array $tickets
  * @var array $colores_estado
  * @var array $usuarios
+<<<<<<< HEAD
  */
 ?>
+=======
+ */ ?>
+>>>>>>> imagenes
 
 <section class="tab-content" id="tab-usuarios">
     <h1 class="admin-titulo">Gestión de Usuarios</h1>

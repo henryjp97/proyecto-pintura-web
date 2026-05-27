@@ -146,6 +146,19 @@ class AdminModel
         return $stmt->execute([$idTicket, $respuesta]);
     }
 
+    public function getDocumentosTicket(int $id): array
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT d.id_documento, d.nombre, d.tipo, d.ruta
+             FROM documentos d
+             INNER JOIN documento_x_tickets dt ON d.id_documento = dt.id_documento
+             WHERE dt.id_ticket = ?
+             ORDER BY d.fecha_subida ASC"
+        );
+        $stmt->execute([$id]);
+        return $stmt->fetchAll();
+    }
+
     // SOLICITUDES
     public function getSolicitudes(): array
     {

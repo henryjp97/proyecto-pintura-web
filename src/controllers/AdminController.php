@@ -10,6 +10,7 @@ class AdminController
         $this->model = new AdminModel($conn);
     }
 
+    //Controla la accion que llega y llama al metodo correspondiente
     public function handle(): void
     {
         $accion = $_POST['accion'] ?? $_GET['accion'] ?? '';
@@ -26,16 +27,19 @@ class AdminController
         };
     }
 
+    //cambia rol a traves de ID
     private function cambiarRol(): void
     {
         $this->model->cambiarRol((int)$_POST['id_usuario'], $_POST['rol']);
     }
 
+    //elimina usuario a traves de ID
     private function eliminarUsuario(): void
     {
         $this->model->eliminarUsuario((int)$_POST['id_usuario']);
     }
 
+    //crear empleado en apartado de empleados
     private function crearEmpleado(): void
     {
         $resultado = $this->model->crearEmpleado(
@@ -45,17 +49,20 @@ class AdminController
             trim($_POST['correo']   ?? ''),
             $_POST['password']      ?? ''
         );
+        //se guarda en flash para mostrar mensaje despues de refrescar
         $_SESSION['flash_empleado'] = [
             'msg'  => $resultado['msg'],
             'tipo' => $resultado['ok'] ? 'ok' : 'error',
         ];
     }
 
+    //cambia estado del ticket mediante id_ticket
     private function cambiarEstadoTicket(): void
     {
         $this->model->cambiarEstadoTicket((int)$_POST['id_ticket'], $_POST['estado']);
     }
 
+    //Pantalla de asignado ha empleadoss
     private function responderTicket(): void
     {
         $id_ticket           = (int)$_POST['id_ticket'];
@@ -66,15 +73,17 @@ class AdminController
 
         $ok = $this->model->responderTicket($id_ticket, $id_empleado, $presupuesto, $descripcion_trabajo);
 
-        if ($ok) {
+        if ($ok) { //Inserccion a BD
             $this->model->guardarRespuestaTicket($id_ticket, $respuesta);
         }
 
+        
         if ($ok && !empty($_POST['correo_cliente'])) {
             $this->enviarCorreoTicket($id_ticket, $presupuesto, $descripcion_trabajo, $_POST['correo_cliente']);
         }
     }
 
+    //Guarda nota + asociada al ticket y al empleado
     private function guardarNota(): void
     {
         $this->model->guardarNota(
@@ -84,6 +93,7 @@ class AdminController
         );
     }
 
+    //
     private function responderSolicitud(): void
     {
         $id_solicitud = (int)$_POST['id_solicitud'];
@@ -91,7 +101,7 @@ class AdminController
 
         $ok = $this->model->guardarRespuestaSolicitud($id_solicitud, $respuesta);
 
-        if (!$ok) {
+        if (!$ok) {//ya respondida
             header('Location: ' . $_SERVER['HTTP_REFERER'] . '?error=ya_respondida');
             exit;
         }
@@ -108,12 +118,13 @@ class AdminController
     {
         require_once __DIR__ . '/../config/mailer.php';
 
-        $cuerpoHtml = "
+        //Cuerpo de correo para ticket 
+        $cuerpoHtml = " 
         <h2>¡Hemos revisado tu solicitud!</h2>
         <p><strong>Ticket #:</strong> {$id}</p>
         <p><strong>Presupuesto:</strong> " . number_format($presupuesto, 2) . " €</p>
         <p><strong>Descripción:</strong><br>" . nl2br(htmlspecialchars($descripcion)) . "</p>
-        <p>Puedes seguir el estado de tu vehículo accediendo a tu área de cliente.</p>
+        <p>Puedes seguir el estado de tu vehículo llamando al 652955253.</p>
         <p>— Equipo FinishLine</p>
     ";
 
@@ -124,10 +135,12 @@ class AdminController
         }
     }
 
+    //Responder a clientes sin iniciar sesion
     private function enviarCorreoSolicitud(string $respuesta, string $correo): void
     {
         require_once __DIR__ . '/../config/mailer.php';
 
+        //cuerpo del correo
         $cuerpoHtml = "
         <h2>Hemos respondido a tu solicitud</h2>
         <p><strong>Respuesta:</strong><br>" . nl2br(htmlspecialchars($respuesta)) . "</p>

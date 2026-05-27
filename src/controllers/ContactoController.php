@@ -8,7 +8,6 @@ require_once __DIR__ . '/../models/usuario.php';
 
 use PHPMailer\PHPMailer\Exception;
 
-// ✅ Clase definida PRIMERO
 class ContactoController
 {
     private SolicitudModel $solicitudModel;
@@ -18,9 +17,10 @@ class ContactoController
         $this->solicitudModel = new SolicitudModel($conn);
     }
 
+    //verifica POST sino devuelve 405
     public function enviarContacto(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
             http_response_code(405);
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
@@ -34,8 +34,9 @@ class ContactoController
 
         $idUsuario = $_SESSION['usuario']['id_usuario'] ?? null;
 
-        // 1. Validar
+        // devuelve jSON con los errores
         $errores = $this->validar($nombre, $correo, $asunto, $mensaje);
+
 
         if (!empty($errores)) {
             http_response_code(422);
@@ -48,7 +49,7 @@ class ContactoController
             exit;
         }
 
-        // 2. Guardar en BD
+        // Crea la solicitud para insertarlo en BD
         try {
             $idSolicitud = $this->solicitudModel->crear([
                 'id_usuario' => $idUsuario,
@@ -57,7 +58,7 @@ class ContactoController
                 'asunto'     => $asunto,
                 'mensaje'    => $mensaje,
             ]);
-        } catch (PDOException $e) {
+        } catch (PDOException $e) { //captura error en la inserccion
             error_log('Error BD: ' . $e->getMessage());
             http_response_code(500);
             header('Content-Type: application/json; charset=utf-8');
@@ -68,7 +69,7 @@ class ContactoController
             exit;
         }
 
-        // 3. Enviar email
+        // Enviar correo, si falla solo logea, no interrumpe el proceso
         $cuerpoHtml = $this->plantillaHTML($nombre, $correo, $asunto, $mensaje, $idSolicitud);
         $enviado    = enviarCorreo('finishlineheesni@gmail.com', '[FinishLine] Nuevo mensaje: ' . $this->etiquetaAsunto($asunto), $cuerpoHtml);
 
@@ -76,18 +77,19 @@ class ContactoController
             error_log('Error al enviar correo de contacto para solicitud #' . $idSolicitud);
         }
 
-        // 4. Todo OK
+        //
         header('Location: /src/views/contacto.php?status=success');
         exit;
     }
 
     private function plantillaHTML(string $nombre, string $correo, string $asunto, string $mensaje, int $id): string
     {
-        $asuntoLabel = htmlspecialchars($this->etiquetaAsunto($asunto));
+        $asuntoLabel = htmlspecialchars($this->etiquetaAsunto($asunto)); //aseroria tecnica o otros
         $nombre      = htmlspecialchars($nombre);
         $correo      = htmlspecialchars($correo);
         $mensaje     = nl2br(htmlspecialchars($mensaje));
 
+        //cuerpo de email
         return "
         <div style='font-family:Poppins,sans-serif;max-width:600px;margin:auto;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;'>
             <div style='background:#1a2744;padding:24px 32px;'>
@@ -133,6 +135,7 @@ class ContactoController
         };
     }
 
+    //Restricciones del formulario
     private function validar(string $nombre, string $correo, string $asunto, string $mensaje): array
     {
         $errores = [];
@@ -166,7 +169,7 @@ class ContactoController
     }
 }
 
-// ✅ Instancia DESPUÉS de declarar la clase
+// Instancia al final para ctuar como controlador y punto de entrada
 $database   = new Database();
 $conn       = $database->getConnection();
 $controller = new ContactoController($conn);

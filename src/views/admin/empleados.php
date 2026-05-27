@@ -1,10 +1,4 @@
-<?php
-
-/**
- * empleados.php
- * Vista admin: lista de empleados + formulario añadir empleado
- * <?php /** @var string $tipoMensajeEmpleado @var string $mensajeEmpleado */ ?>
-
+<?php /** @var array $empleados @var array $tickets @var string $mensajeEmpleado @var string $tipoMensajeEmpleado */ ?>
 
 <section class="tab-content" id="tab-empleados">
     <div class="empleados-header">
@@ -82,9 +76,8 @@
             <?php else: ?>
                 <?php foreach ($empleados as $emp): ?>
                     <?php
-                    // Contar tickets asignados a este empleado
                     $totalTickets = count(array_filter($tickets, fn($t) =>
-                            (int)$t['id_empleado'] === (int)$emp['id_usuario']
+                        (int)$t['id_empleado'] === (int)$emp['id_usuario']
                     ));
                     ?>
                     <tr>
@@ -93,13 +86,13 @@
                         <td><?= htmlspecialchars($emp['Correo'] ?? '—') ?></td>
                         <td><?= htmlspecialchars($emp['Telefono'] ?? '—') ?></td>
                         <td>
-                        <span class="badge-estado" style="background:#3b82f6">
-                            <?= $totalTickets ?> ticket<?= $totalTickets !== 1 ? 's' : '' ?>
-                        </span>
+                            <span class="badge-estado" style="background:#3b82f6">
+                                <?= $totalTickets ?> ticket<?= $totalTickets !== 1 ? 's' : '' ?>
+                            </span>
                         </td>
                         <td>
                             <form method="POST" style="display:inline"
-                                  onsubmit="return confirm('¿Eliminar a <?= htmlspecialchars($emp['Nombre']) ?>?')">
+                                  onsubmit="return confirm('¿Eliminar a <?= htmlspecialchars($emp['Nombre'], ENT_QUOTES) ?>?')">
                                 <input type="hidden" name="accion"     value="eliminar_usuario">
                                 <input type="hidden" name="id_usuario" value="<?= (int)$emp['id_usuario'] ?>">
                                 <button type="submit" class="btn-sm btn-rojo">Eliminar</button>
@@ -131,8 +124,6 @@
         transition: background .2s;
     }
     .btn-cancelar:hover { background: #d1d5db; }
-
-    /* Reutiliza .card-form, .form-fila, .form-grupo, .btn-principal del dashboard */
 </style>
 
 <script>
@@ -142,7 +133,6 @@
     }
 
     <?php if (!empty($mensajeEmpleado) && $tipoMensajeEmpleado === 'error'): ?>
-    // Si hubo error, reabrir el formulario automáticamente
     document.addEventListener('DOMContentLoaded', () => toggleFormEmpleado());
     <?php endif; ?>
 </script>

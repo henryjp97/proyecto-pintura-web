@@ -33,6 +33,7 @@ class AuthController {
 
     //registrarse
     public function registro(array $datos): array {
+        //Restriccion de vacio para los campos: nombre, correo, apellido, password
         if (empty($datos['nombre']) || empty($datos['apellido']) ||
             empty($datos['correo']) || empty($datos['password'])) {
             return ['error' => 'Todos los campos son obligatorios'];
@@ -55,7 +56,7 @@ class AuthController {
             : ['error'   => 'Error al registrar el usuario'];
     }
 
-    //Cerrar sesion
+    //Cerrar sesision destruyendo la que estaba
     public function logout(): void {
         session_destroy();
         header('Location: /index.php');

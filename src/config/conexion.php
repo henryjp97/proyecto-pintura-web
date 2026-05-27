@@ -1,5 +1,7 @@
 <?php
+
 date_default_timezone_set('Europe/Madrid');
+
 class Database {
     private string $host;
     private string $db_name;
@@ -9,14 +11,14 @@ class Database {
 
     private ?PDO $conn = null;
 
-
+    //Contructor con las claves a la base de datos
     public function __construct() {
         $this->host     = 'db';
         $this->db_name  = getenv('MYSQL_DATABASE');
         $this->username = 'root';
         $this->password = getenv('MYSQL_ROOT_PASSWORD');
     }
-
+    //Conexion PDO para la bbdd
     public function  getConnection(): PDO {
         if ($this->conn !== null) {
             return $this->conn;

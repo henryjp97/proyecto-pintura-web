@@ -43,37 +43,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Enviar email con PHPMailer
             try {
-                $mail = crearMailer();
-                $mail->addAddress($correo);
-                $mail->Subject = 'FinishLine - Recuperación de contraseña';
+                $cuerpoHtml = "
+                <div style='font-family:Arial,sans-serif;max-width:500px;margin:auto;'>
+                    <h2 style='color:#0A2540;'>FinishLine</h2>
+                    <p>Hola,</p>
+                    <p>Hemos recibido una solicitud para restablecer tu contraseña.</p>
+                    <p>Haz clic en el botón para crear una nueva (el enlace caduca en <strong>1 hora</strong>):</p>
+                    <a href='{$enlace}'
+                    style='display:inline-block;padding:12px 24px;background:#0A2540;
+                            color:#ffffff;text-decoration:none;border-radius:5px;
+                            font-weight:bold;margin:16px 0;'>
+                        Restablecer contraseña
+                    </a>
+                    <p style='color:#999;font-size:0.85rem;'>
+                        Si no has solicitado esto, ignora este mensaje.<br>
+                        O copia este enlace en tu navegador:<br>
+                        <a href='{$enlace}' style='color:#007bff;'>{$enlace}</a>
+                    </p>
+                    <hr style='border:none;border-top:1px solid #eee;margin-top:24px;'>
+                    <p style='color:#aaa;font-size:0.8rem;'>FinishLine — Chapa y Pintura</p>
+                </div>
+            ";
 
-                // Email en HTML
-                $mail->isHTML(true);
-                $mail->Body = "
-                    <div style='font-family:Arial,sans-serif;max-width:500px;margin:auto;'>
-                        <h2 style='color:#0A2540;'>FinishLine</h2>
-                        <p>Hola,</p>
-                        <p>Hemos recibido una solicitud para restablecer tu contraseña.</p>
-                        <p>Haz clic en el botón para crear una nueva (el enlace caduca en <strong>1 hora</strong>):</p>
-                        <a href='$enlace'
-                           style='display:inline-block;padding:12px 24px;background:#0A2540;
-                                  color:#ffffff;text-decoration:none;border-radius:5px;
-                                  font-weight:bold;margin:16px 0;'>
-                            Restablecer contraseña
-                        </a>
-                        <p style='color:#999;font-size:0.85rem;'>
-                            Si no has solicitado esto, ignora este mensaje.<br>
-                            O copia este enlace en tu navegador:<br>
-                            <a href='$enlace' style='color:#007bff;'>$enlace</a>
-                        </p>
-                        <hr style='border:none;border-top:1px solid #eee;margin-top:24px;'>
-                        <p style='color:#aaa;font-size:0.8rem;'>FinishLine — Chapa y Pintura</p>
-                    </div>
-                ";
-                // Versión de texto plano por si el cliente no soporta HTML
-                $mail->AltBody = "Enlace para restablecer tu contraseña (válido 1 hora):\n\n$enlace\n\nSi no lo pediste, ignora este mensaje.";
-
-                $mail->send();
+            $enviado = enviarCorreo($correo, 'FinishLine - Recuperación de contraseña', $cuerpoHtml);
+            if (!$enviado) {
+                error_log("Error al enviar email recuperación a: {$correo}");
+            }
             } catch (Exception $e) {
                 // No mostramos el error al usuario por seguridad,
                 // pero lo podemos ver en logs si hace falta
